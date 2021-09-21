@@ -1,0 +1,1 @@
+// 3d earth model component
