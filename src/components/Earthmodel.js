@@ -11,7 +11,7 @@ import EarthSpecularTexture from './assets/textures/8k_earth_specular_map.jpg'
 
 
 
-function Sphere({ position, texture }) {
+function Sphere({ position, texture, radius }) {
     const EarthMesh = useRef(null)
     const CloudsMesh = useRef(null)
     useFrame(() => {
@@ -21,9 +21,10 @@ function Sphere({ position, texture }) {
     const [Earth, NormalEarth, SpecularEarth, Clouds] = useLoader(TextureLoader, [texture, EarthNormalTexture, EarthSpecularTexture, CloudsTexture])
     return (
         <>
-            <ambientLight intensity={0.5} />
+            {/* Earth texture */}
             <mesh ref={EarthMesh} position={position}>
-                <sphereGeometry attach="geometry" args={[2, 32, 32]} />
+                <ambientLight intensity={0.5} />
+                <sphereGeometry attach="geometry" args={[radius, 32, 32]} />
                 <meshPhongMaterial specularMap={SpecularEarth} />
                 <meshStandardMaterial
                     map={Earth}
@@ -31,8 +32,10 @@ function Sphere({ position, texture }) {
                     attach="material"
                 />
             </mesh>
+
+            {/* Clouds texture */}
             <mesh ref={CloudsMesh} position={position} >
-                <sphereGeometry attach="geometry" args={[2.04, 32, 32]} />
+                <sphereGeometry attach="geometry" args={[radius + 0.04, 32, 32]} />
                 <meshPhongMaterial
                     map={Clouds}
                     opacity={0.4}
@@ -56,8 +59,8 @@ export default function Earth() {
     return (
         <Canvas>
             <color attach="background" args={["black"]} />
-            <directionalLight color="#f6f3ea" intensity={2} position={[-3, 3, 1]} />
-            <Sphere position={[0, 0, 0]} texture={EarthTexture} />
+            <directionalLight color="#f6f3ea" intensity={2} position={[0, 0, -3]} />
+            <Sphere position={[0, 1, 0]} texture={EarthTexture} radius={2} />
         </Canvas>
     )
 }
