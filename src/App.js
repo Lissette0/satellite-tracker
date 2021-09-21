@@ -3,9 +3,11 @@ import Navbar from './components/Navbar';
 import{BrowserRouter as Router,Switch, Route} from 'react-router-dom'
 import './App.css';
 import Home from './components/pages/Home';
+import Earth from './components/Earthmodel'
 
 function App() {
   return (
+    <>
     <div className="App">
       <Router>
         <Navbar/>
@@ -14,6 +16,8 @@ function App() {
         </Switch>
       </Router>
     </div>
+    <Earth/>
+    </>
   );
 }
 
