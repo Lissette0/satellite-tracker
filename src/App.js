@@ -1,10 +1,10 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import Navbar from './components/Navbar';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import './App.css';
 import Home from './components/pages/Home';
-import Earth from './components/Earthmodel'
-import Loading from "./components/Loading"
+import Content from './components/pages/Content';
+
 
 
 function App() {
@@ -18,9 +18,7 @@ function App() {
           </Switch>
         </Router>
       </div>
-      <Suspense fallback={Loading} >
-        <Earth />
-      </Suspense>
+        <Content />
     </>
   );
 }

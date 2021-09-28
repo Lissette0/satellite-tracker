@@ -1,1 +1,0 @@
-// side nav component for satelitte filters
