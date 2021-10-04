@@ -7,13 +7,13 @@ body {
   width: 100vw;
 }
 
-
 #sidebar{
   height: 100vh;
   float:left;
   position: relative;
   z-index: 1;
 }
+
 #earth{
   height: 100vh;
   /* margin-left: 25%; */
