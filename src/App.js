@@ -6,7 +6,6 @@ import Home from './components/pages/Home';
 import Content from './components/pages/Content';
 
 
-
 function App() {
   return (
     <>
@@ -14,11 +13,11 @@ function App() {
         <Router>
           <Navbar />
           <Switch>
-            <Route path='/' exact component={Home} />
+            <Route path={["/", "/home", "/satellite-tracker"]} exact component={Home} />
+            <Route path='/content' component={Content} />
           </Switch>
         </Router>
       </div>
-        <Content />
     </>
   );
 }

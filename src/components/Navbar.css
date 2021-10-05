@@ -3,7 +3,7 @@
 } */
 
 .navbar {
-    background: linear-gradient(90deg, rgb(28, 27, 27) 0%, rgb(26, 23, 23) 100%);
+    background: #2F303A;
     height: 80px;
     display: flex;
     justify-content: center;
@@ -12,6 +12,7 @@
     position: sticky;
     top: 0;
     z-index: 999;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   }
   
   .navbar-container {
@@ -25,7 +26,7 @@
   .navbar-logo {
     color: #fff;
     justify-self: start;
-    margin-left: 20px;
+    margin-left: 15px;
     cursor: pointer;
     text-decoration: none;
     font-size: 2rem;

@@ -2,22 +2,23 @@ import React from 'react';
 import '../App.css';
 import { Button } from './Button';
 import './Banner.css';
+import { Link } from "react-router-dom";
 
 function Banner() {
   return (
     <div className='banner-container'>
-      {/* <video src='/videos/video-1.mp4' autoPlay loop muted /> */}
-      <h1>Real Time Satelitte Tracker</h1>
-      <p> Lorem ipsum dolor sit amet</p>
+      <h1>Satellite Earth </h1>
+      <p> Real Time Satelitte Tracker</p>
       <div className='banner-btns'>
-        <Button
-          className='btns'
-          buttonStyle='btn--outline'
-          buttonSize='btn--large'
-        >
+        <Link to = '/content'>
+          <Button
+            className='btns'
+            buttonStyle='btn--outline'
+            buttonSize='btn--large'
+          >
           GET STARTED
         </Button>
-        
+        </Link>
       </div>
     </div>
   );
