@@ -11,7 +11,7 @@ export default function EllipticalOrbit({ position, radius }) {
             }
             getPoint(t) {
                 //center_x, center_y, x_radius, y_radius, aStartAngle, aEndAngle, aClockwise, aRotation
-                const curve = new THREE.EllipseCurve(0, 0, 2.5, 2.5, 0, 2 * Math.PI, false, 0)
+                const curve = new THREE.EllipseCurve(0, 0, 3, 2.5, 0, 2 * Math.PI, false, 0)
                 const p = curve.getPoint(t)
                 return new THREE.Vector3(p.x, p.y, 0).multiplyScalar(this.scale)
             }
