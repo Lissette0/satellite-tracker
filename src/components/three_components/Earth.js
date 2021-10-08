@@ -10,75 +10,68 @@ import EarthTexture from '../assets/textures/8k_earth_daymap.jpg'
 import EarthNormalTexture from '../assets/textures/8k_earth_normal_map.jpg'
 import EarthSpecularTexture from '../assets/textures/8k_earth_specular_map.jpg'
 
-
-
-function Sphere({ position, texture, radius, rotation }) {
-    const [Earth, NormalEarth, SpecularEarth, Clouds] = useLoader(TextureLoader, [texture, EarthNormalTexture, EarthSpecularTexture, CloudsTexture])
-    return (
-        <>
-            {/* Earth texture */}
-            <mesh position={position} rotation={rotation} >
-                <sphereGeometry attach="geometry" args={[radius, 32, 32]} />
-                <meshPhongMaterial specularMap={SpecularEarth} />
-                <meshStandardMaterial
-                    map={Earth}
-                    normalMap={NormalEarth}
-                    attach="material"
-                />
-            </mesh>
-
-            {/* Clouds texture */}
-            <mesh position={position} >
-                <sphereGeometry attach="geometry" args={[radius + 0.02, 32, 32]} />
-                <meshPhongMaterial
-                    map={Clouds}
-                    opacity={0.4}
-                    depthWrite={true}
-                    transparent={true}
-                    side={THREE.DoubleSide}
-                />
-            </mesh>
-        </>
-
-    )
-}
-
-function Point({ position }) {
-    return (
-        <mesh position={position}>
-            <sphereGeometry attach="geometry" args={[0.024, 32, 32]} />
-            <meshBasicMaterial attach="material" color="red" />
-        </mesh>
-    )
-}
-
 export default function Earth() {
-    // lat = 0 long = 0 postion = [2, 0.15, -0.12]
-    //ny lat = 46.4128 long = 72.0060
-    //r_earth = 6367 km
+    function Sphere({ position, texture, radius, rotation }) {
+        const [Earth, NormalEarth, SpecularEarth, Clouds] = useLoader(TextureLoader, [texture, EarthNormalTexture, EarthSpecularTexture, CloudsTexture])
+        return (
+            <>
+                {/* Earth texture */}
+                <mesh position={position} rotation={rotation} >
+                    <sphereGeometry attach="geometry" args={[radius, 32, 32]} />
+                    <meshPhongMaterial specularMap={SpecularEarth} />
+                    <meshStandardMaterial
+                        map={Earth}
+                        normalMap={NormalEarth}
+                        attach="material"
+                    />
+                </mesh>
+
+                {/* Clouds texture */}
+                <mesh position={position} >
+                    <sphereGeometry attach="geometry" args={[radius + 0.02, 32, 32]} />
+                    <meshPhongMaterial
+                        map={Clouds}
+                        opacity={0.4}
+                        depthWrite={true}
+                        transparent={true}
+                        side={THREE.DoubleSide}
+                    />
+                </mesh>
+            </>
+
+        )
+    }
+
+    function Point({ position }) {
+        return (
+            <mesh position={position}>
+                <sphereGeometry attach="geometry" args={[0.024, 32, 32]} />
+                <meshBasicMaterial attach="material" color="red" />
+            </mesh>
+        )
+    }
+
+    function convertLongLatToXYZ(lat, long, radius) {
+        let latInRad = (90 - lat) * (Math.PI / 180)
+        let longInRad = (long + 180) * (Math.PI / 180)
+
+        let x = -((radius) * Math.sin(latInRad) * Math.cos(longInRad))
+        let y = ((radius) * Math.cos(latInRad))
+        let z = ((radius) * Math.sin(latInRad) * Math.sin(longInRad))
 
 
-    function convertToXYZ(coords) {
-        let [lat, long] = coords
-
-        let latInRad = lat * (Math.PI / 180)
-        let longInRad = -long * (Math.PI / 180)
-
-        let x = 2 * Math.cos(latInRad) * Math.cos(longInRad)
-        let y = 2 * Math.sin(longInRad) * Math.cos(latInRad)
-        let z = 2 * Math.sin(latInRad)
         return [x, y, z]
     }
 
     let cities = {
         "LA": [34.052235, -118.243683],
         "NY": [40.730610, -73.935242],
-        "PM": [0, 0],
+        "PM": [51.4780, 0],
         "Toronto": [43.6532, -79.3832],
         "Paris": [48.8566, 2.3522]
     }
 
-    let coords = convertToXYZ(cities.Paris)
+    let coords = convertLongLatToXYZ(cities.NY[0], cities.NY[1], 2)
     console.log(coords)
 
     return (
