@@ -1,14 +1,15 @@
 // 3d earth model component
 import * as THREE from "three";
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { TextureLoader } from 'three'
 import { OrbitControls } from '@react-three/drei'
 import EllipticalOrbit from "./EllipticalOrbit";
 import CloudsTexture from '../assets/textures/8k_clouds.jpg'
-import { Canvas, useLoader } from '@react-three/fiber'
+import { Canvas, useFrame, useLoader } from '@react-three/fiber'
 import EarthTexture from '../assets/textures/8k_earth_daymap.jpg'
 import EarthNormalTexture from '../assets/textures/8k_earth_normal_map.jpg'
 import EarthSpecularTexture from '../assets/textures/8k_earth_specular_map.jpg'
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 
 export default function Earth() {
     function Sphere({ position, texture, radius, rotation }) {
@@ -51,6 +52,34 @@ export default function Earth() {
         )
     }
 
+    // function Satellite() {
+    //     const [model, setModel] = useState()
+    //     useEffect(() => {
+    //         new GLTFLoader().load("/", setModel)
+    //     }, [])
+    //     console.log(model)
+    //     return null
+    // }
+
+    function MovingPoint({ ellipseArgs, rate, sphereArgs }) {
+        const ellipseCurvePoints = new THREE.EllipseCurve(...ellipseArgs)
+        const MovingPointRef = useRef(null)
+
+        useFrame(({ clock }) => {
+            let frame = Math.floor(clock.elapsedTime % rate)
+            let point = ellipseCurvePoints.getPointAt(frame / rate)
+            MovingPointRef.current.position.x = point.x
+            MovingPointRef.current.position.y = point.y
+        })
+
+        return (
+            <mesh ref={MovingPointRef}>
+                <sphereGeometry attach="geometry" args={sphereArgs} />
+                <meshPhongMaterial attach="material" color={0x819bc1} wireframe />
+            </mesh>
+        )
+    }
+
     function convertLongLatToXYZ(lat, long, radius) {
         let latInRad = (90 - lat) * (Math.PI / 180)
         let longInRad = (long + 180) * (Math.PI / 180)
@@ -70,9 +99,8 @@ export default function Earth() {
         "Toronto": [43.6532, -79.3832],
         "Paris": [48.8566, 2.3522]
     }
-
     let coords = convertLongLatToXYZ(cities.NY[0], cities.NY[1], 2)
-    console.log(coords)
+    let ellipseArgs = [0, 0, 3, 2.5, 0, 2 * Math.PI, false, Math.PI / 2]
 
     return (
         <Canvas>
@@ -81,14 +109,15 @@ export default function Earth() {
             <directionalLight color="#f6f3ea" intensity={2} position={[-3, 3, 3]} />
             <Sphere position={[0, 0, 0]} texture={EarthTexture} radius={2} />
             <Point position={coords} />
-            <Point position={[0, 2.5, 0]} />
-            <EllipticalOrbit position={[0, 0, 0]} radius={0.01} />
+            <MovingPoint ellipseArgs={ellipseArgs} rate={1200} sphereArgs={[0.05, 32, 32]} />
+            <EllipticalOrbit position={[0, 0, 0]} radius={0.01} ellipseArgs={ellipseArgs} />
             <OrbitControls
                 enableZoom={true}
                 enableRotate={true}
                 enablePan={true}
                 rotateSpeed={0.4}
             />
+
         </Canvas>
     )
 }
