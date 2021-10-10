@@ -8,26 +8,27 @@ import satellite from "./scene.glb"
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 
-export default function Satellite(props) {
+export default function Satellite({ z, ellipseArgs, rate, scale, ...props }) {
   const group = useRef()
   const { nodes, materials } = useGLTF(satellite)
 
-  const ellipseCurvePoints = new THREE.EllipseCurve(...props.ellipseArgs)
+  const ellipseCurvePoints = new THREE.EllipseCurve(...ellipseArgs)
 
   useFrame(({ clock }) => {
-    let frame = clock.elapsedTime % props.rate
-    let point = ellipseCurvePoints.getPointAt((frame / props.rate))
+    let frame = clock.elapsedTime % rate
+    let point = ellipseCurvePoints.getPointAt((frame / rate))
     group.current.position.x = point.x
     group.current.position.y = point.y
+    group.current.position.z = z
     group.current.rotation.y = group.current.rotation.x += 0.01
 
   })
 
   return (
-    <group ref={group} {...props} dispose={null} >
+    <group ref={group} {...props} dispose={null} scale={scale} >
       <group rotation={[-Math.PI / 2, Math.PI / 2, 0]}>
         <group rotation={[Math.PI / 2, 0, 0]}>
-          <group rotation={[-Math.PI / 2, 0, -Math.PI / 2]} scale={props.scale}>
+          <group rotation={[-Math.PI / 2, 0, -Math.PI / 2]} >
             <mesh geometry={nodes.Satellite_Material001_0.geometry} material={materials['Material.001']} />
             <mesh geometry={nodes.Satellite_Material002_0.geometry} material={materials['Material.002']} />
             <mesh geometry={nodes.Satellite_Satellite_0.geometry} material={materials.Satellite} />

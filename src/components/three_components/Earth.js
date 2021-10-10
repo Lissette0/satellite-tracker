@@ -1,19 +1,27 @@
 // 3d earth model component
-import * as THREE from "three";
 import React from 'react'
-import { TextureLoader } from 'three'
-import { OrbitControls } from '@react-three/drei'
-import EllipticalOrbit from "./EllipticalOrbit";
-import CloudsTexture from '../assets/textures/8k_clouds.jpg'
-import { Canvas, useLoader } from '@react-three/fiber'
-import EarthTexture from '../assets/textures/8k_earth_daymap.jpg'
-import EarthNormalTexture from '../assets/textures/8k_earth_normal_map.jpg'
-import EarthSpecularTexture from '../assets/textures/8k_earth_specular_map.jpg'
+import * as THREE from "three";
 import Satellite from "./Satellite"
+import EllipticalOrbit from "./EllipticalOrbit";
+import { OrbitControls } from '@react-three/drei'
+import pz from "../assets/textures/sun/sun_pz.png"
+import nx from "../assets/textures/sun/sun_nx.png"
+import ny from "../assets/textures/sun/sun_ny.png"
+import nz from "../assets/textures/sun/sun_nz.png"
+import px from "../assets/textures/sun/sun_px.png"
+import py from "../assets/textures/sun/sun_py.png"
+import { CubeTextureLoader, TextureLoader } from 'three'
+import { Canvas, useLoader, useThree } from '@react-three/fiber'
+import CloudsTexture from '../assets/textures/earth/8k_clouds.jpg'
+import EarthTexture from '../assets/textures/earth/8k_earth_daymap.jpg'
+import EarthNormalTexture from '../assets/textures/earth/8k_earth_normal_map.jpg'
+import EarthSpecularTexture from '../assets/textures/earth/8k_earth_specular_map.jpg'
+
 
 export default function Earth() {
     function Sphere({ position, texture, radius, rotation }) {
         const [Earth, NormalEarth, SpecularEarth, Clouds] = useLoader(TextureLoader, [texture, EarthNormalTexture, EarthSpecularTexture, CloudsTexture])
+
         return (
             <>
                 {/* Earth texture */}
@@ -38,9 +46,21 @@ export default function Earth() {
                         side={THREE.DoubleSide}
                     />
                 </mesh>
-            </>
 
+            </>
         )
+    }
+
+    function SkyBox() {
+        //1celxdj1hva8, seed for sun skybox
+        let { scene } = useThree()
+        const loader = new CubeTextureLoader()
+        const texture = loader.load([
+            px, nx, py, ny, pz, nz
+        ])
+        scene.background = texture
+        return null
+
     }
 
     function Point({ position }) {
@@ -72,24 +92,29 @@ export default function Earth() {
         "Paris": [48.8566, 2.3522]
     }
     let coords = convertLongLatToXYZ(cities.NY[0], cities.NY[1], 2)
-    let ellipseArgs = [0, 0, 2.5, 2.5, 0, 2 * Math.PI, false, Math.PI / 2]
+    // center_x, center_y, x_radius, y_radius, aStartAngle, aEndAngle, aClockwise, aRotation
+    let ecc = 0.00172
+    let y_radius = 3
+    let x_radius = Math.sqrt((Math.pow(y_radius, 2)) / (1 - Math.pow(ecc, 2)))
+    let ellipseArgs = [0, 0, x_radius, y_radius, 0, Math.PI * 2, false, 0]
+    let z = 0
+
+
 
     return (
         <Canvas>
-            <color attach="background" args={["black"]} />
-            <ambientLight intensity={0.5} />
-            <directionalLight color="#f6f3ea" intensity={2} position={[-3, 3, 3]} />
+            <SkyBox />
+            <directionalLight color="#f6f3ea" intensity={1.3} position={[-3, 3, 3]} />
             <Sphere position={[0, 0, 0]} texture={EarthTexture} radius={2} />
             <Point position={coords} />
-            {/* <EllipticalOrbit position={[0, 0, 0]} radius={0.01} ellipseArgs={ellipseArgs} /> */}
-            <Satellite scale={[0.15, 0.15, 0.15]} rate={60} ellipseArgs={ellipseArgs} />
+            <Satellite scale={[0.02, 0.02, 0.02]} rate={60} ellipseArgs={ellipseArgs} z={z} />
+            {/* <EllipticalOrbit position={[0, 0, 0]} radius={0.01} ellipseArgs={ellipseArgs} z={z} /> */}
             <OrbitControls
                 enableZoom={true}
                 enableRotate={true}
                 enablePan={true}
                 rotateSpeed={0.4}
             />
-
         </Canvas>
     )
 }
