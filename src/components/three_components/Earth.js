@@ -24,7 +24,7 @@ import { Stats } from "@react-three/drei";
 
 // import TestIss from "./TestIss";
 
-import ISS2 from './Iss2'
+import ISS from './Iss'
 
 export default function Earth() {
     function SkyBox() {
@@ -155,7 +155,7 @@ export default function Earth() {
                 z={z}
             /> */}
             {/* <TestIss /> */}
-            <ISS2
+            <ISS
                 position={[0, 3, 0]}
                 scale={[0.002, 0.002, 0.002]}
                 rate={60}

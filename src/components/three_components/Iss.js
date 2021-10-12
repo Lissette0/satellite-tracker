@@ -8,7 +8,7 @@ import iss from "./iss.glb"
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 
-export default function ISS2({ z, ellipseArgs, rate, scale, ...props }) {
+export default function ISS({ z, ellipseArgs, rate, scale, ...props }) {
   const group = useRef()
   const { nodes, materials } = useGLTF(iss)
 
