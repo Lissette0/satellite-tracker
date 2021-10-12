@@ -1,6 +1,7 @@
 import React, { Suspense } from 'react';
 //import '../../Content.css';
 import Sidebar from '../Sidebar.js'
+// import Earth from '../three_components/Earth.js'
 import Earth from '../three_components/Earth.js'
 import Loading from '../Loading';
 import './Content.css'

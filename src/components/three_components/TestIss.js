@@ -1,6 +1,6 @@
 import { useFrame } from "@react-three/fiber";
 import React, { useRef } from "react";
-import { earthRadius } from "satellite.js/lib/constants";
+// import { earthRadius } from "satellite.js/lib/constants";
 
 // work in progress
 
@@ -54,7 +54,7 @@ const TestIss = () => {
   });
   return (
     <mesh ref={torusRef} position={[0, 3, 0]}>
-      <torusGeometry args={[0.004, 0.2, 12, 36]} />
+      <torusGeometry args={[1, 0.2, 12, 36]} />
       <meshStandardMaterial color={"red"} />
     </mesh>
   );
