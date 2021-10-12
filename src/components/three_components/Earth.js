@@ -3,7 +3,7 @@ import React, { useRef } from "react";
 import * as THREE from "three";
 import Satellite from "./Satellite";
 import EllipticalOrbit from "./EllipticalOrbit";
-import { OrbitControls, Stars } from "@react-three/drei";
+import { OrbitControls, Stars, useGLTF } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import pz from "../assets/textures/sun/sun_pz.png";
 import nx from "../assets/textures/sun/sun_nx.png";
@@ -19,14 +19,59 @@ import EarthNormalTexture from "../assets/textures/earth/8k_earth_normal_map.jpg
 import EarthSpecularTexture from "../assets/textures/earth/8k_earth_specular_map.jpg";
 import { Stats } from "@react-three/drei";
 
+
 // import { earthRadius } from "satellite.js/lib/constants";
 
 
 // import TestIss from "./TestIss";
 
+
 import ISS from './Iss'
 
 export default function Earth() {
+    function Sphere({ position, texture, radius, rotation }) {
+        const sphereRef = useRef();
+        const cloudRef = useRef();
+        // const groupRef = useRef();
+
+        // useFrame((state) => {
+        //     state.camera.lookAt(0, 0, 0);
+        // });
+        // console.log("rot", rotation);
+        // console.log("pos", position);
+        const [Earth, NormalEarth, SpecularEarth, Clouds] = useLoader(
+            TextureLoader,
+            [texture, EarthNormalTexture, EarthSpecularTexture, CloudsTexture]
+        );
+        return (
+            <>
+                {/* Earth texture */}
+                <mesh ref={sphereRef} position={position} rotation={rotation}>
+                    <sphereGeometry attach="geometry" args={[radius, 32, 32]} />
+                    <meshPhongMaterial specularMap={SpecularEarth} />
+                    <meshStandardMaterial
+                        map={Earth}
+                        normalMap={NormalEarth}
+                        attach="material"
+                    />
+                </mesh>
+
+                {/* Clouds texture */}
+                <mesh ref={cloudRef} position={position} rotation={rotation}>
+                    <sphereGeometry attach="geometry" args={[radius + 0.02, 32, 32]} />
+                    <meshPhongMaterial
+                        map={Clouds}
+                        opacity={0.4}
+                        depthWrite={true}
+                        transparent={true}
+                        side={THREE.DoubleSide}
+                    />
+                </mesh>
+            </>
+        );
+    }
+
+
     function SkyBox() {
         //1celxdj1hva8, seed for sun skybox
         let { scene } = useThree();
@@ -63,7 +108,7 @@ export default function Earth() {
         Toronto: [43.6532, -79.3832],
         Paris: [48.8566, 2.3522],
     };
-    let coords = convertLongLatToXYZ(cities.NY[0], cities.NY[1], 2);
+    let coords = convertLongLatToXYZ(cities.Paris[0], cities.Paris[1], 2);
     // center_x, center_y, x_radius, y_radius, aStartAngle, aEndAngle, aClockwise, aRotation
     let ecc = 0.00172;
     let y_radius = 3;
@@ -72,47 +117,7 @@ export default function Earth() {
     let z = 0;
 
 
-    function Sphere({ position, texture, radius, rotation }) {
-        const sphereRef = useRef();
-        const cloudRef = useRef();
-        const groupRef = useRef();
 
-        // useFrame((state) => {
-        //     state.camera.lookAt(0, 0, 0);
-        // });
-        // console.log("rot", rotation);
-        // console.log("pos", position);
-        const [Earth, NormalEarth, SpecularEarth, Clouds] = useLoader(
-            TextureLoader,
-            [texture, EarthNormalTexture, EarthSpecularTexture, CloudsTexture]
-        );
-        return (
-            <group ref={groupRef}>
-                {/* Earth texture */}
-                <mesh ref={sphereRef} position={position} rotation={rotation}>
-                    <sphereGeometry attach="geometry" args={[radius, 32, 32]} />
-                    <meshPhongMaterial specularMap={SpecularEarth} />
-                    <meshStandardMaterial
-                        map={Earth}
-                        normalMap={NormalEarth}
-                        attach="material"
-                    />
-                </mesh>
-
-                {/* Clouds texture */}
-                <mesh ref={cloudRef} position={position} rotation={rotation}>
-                    <sphereGeometry attach="geometry" args={[radius + 0.02, 32, 32]} />
-                    <meshPhongMaterial
-                        map={Clouds}
-                        opacity={0.4}
-                        depthWrite={true}
-                        transparent={true}
-                        side={THREE.DoubleSide}
-                    />
-                </mesh>
-            </group>
-        );
-    }
 
     // const TestSphere = () => {
     //     return (
@@ -137,6 +142,8 @@ export default function Earth() {
     //     );
     //   };
 
+
+
     return (
         <Canvas>
             <SkyBox />
@@ -148,13 +155,20 @@ export default function Earth() {
             />
             <directionalLight color="#f6f3ea" intensity={1.3} position={[-3, 3, 3]} />
             <Point position={coords} />
+
+            {/* <TestIss /> */}
+            {/* <EllipticalOrbit
+                position={[0, 0, 0]}
+                radius={0.01}
+                ellipseArgs={ellipseArgs}
+                z={z}
+            /> */}
             {/* <Satellite
                 scale={[0.02, 0.02, 0.02]}
                 rate={60}
                 ellipseArgs={ellipseArgs}
                 z={z}
             /> */}
-            {/* <TestIss /> */}
             <ISS
                 position={[0, 3, 0]}
                 scale={[0.002, 0.002, 0.002]}
@@ -163,12 +177,6 @@ export default function Earth() {
                 z={z}
             />
 
-            {/* <EllipticalOrbit
-                position={[0, 0, 0]}
-                radius={0.01}
-                ellipseArgs={ellipseArgs}
-                z={z}
-            /> */}
             {/*                     
             <pointLight
                 color="#ffffff"
@@ -178,7 +186,6 @@ export default function Earth() {
             />
             <ambientLight color="#d1d63c" />
             <TestSphere /> */}
-
             <OrbitControls
                 enableZoom={true}
                 enableRotate={true}
