@@ -54,7 +54,7 @@ const TestIss = () => {
   });
   return (
     <mesh ref={torusRef} position={[0, 3, 0]}>
-      <torusGeometry args={[1, 0.2, 12, 36]} />
+      <torusGeometry args={[10, 0.2, 12, 36]} />
       <meshStandardMaterial color={"red"} />
     </mesh>
   );
