@@ -9,6 +9,7 @@ import { convertLongLatToXYZ } from "./Helpers";
 import Camera from "./Camera";
 
 const Canvas = () => {
+  const scale = 1000; // 1 unit = 1000km
   let cities = {
     LA: [34.052235, -118.243683],
     NY: [40.73061, -73.935242],
@@ -28,10 +29,10 @@ const Canvas = () => {
       <gridHelper args={[50, 6, "skyblue", "white"]} />
       <Camera />
       <Lights />
-      <Earth />
+      <Earth scale={scale} />
       <ISS
-        position={[0, 3, 0]}
-        scale={[0.002, 0.002, 0.002]}
+        position={[0, 8, 0]}
+        scale={[0.006, 0.006, 0.006]}
         rate={60}
         ellipseArgs={ellipseArgs}
         z={z}

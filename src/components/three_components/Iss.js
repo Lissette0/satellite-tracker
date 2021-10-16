@@ -1,29 +1,55 @@
-import React, { useRef } from 'react'
-import iss from "./iss.glb"
-import { useFrame } from '@react-three/fiber'
-import * as THREE from 'three'
-import { useGLTF } from '@react-three/drei'
-
+import React, { useRef, useState } from "react";
+import iss from "./iss.glb";
+import { useFrame } from "@react-three/fiber";
+import * as THREE from "three";
+import { useGLTF } from "@react-three/drei";
+import * as satellite from "satellite.js";
+import { convertLongLatToXYZ } from "./Helpers";
+import { earthRadius } from "satellite.js/lib/constants";
 
 export default function ISS({ z, ellipseArgs, rate, scale }) {
-    const ISSref = useRef()
-    const data = useGLTF(iss)
-    const ellipseCurvePoints = new THREE.EllipseCurve(...ellipseArgs)
-    useFrame(({ clock }) => {
-        let frame = clock.elapsedTime % rate
-        let point = ellipseCurvePoints.getPointAt((frame / rate))
-        ISSref.current.position.x = point.x
-        ISSref.current.position.y = point.y
-        ISSref.current.position.z = z
-        ISSref.current.rotation.y = ISSref.current.rotation.x += 0.01
-    })
-    return (
-        data ?
-            <>
-                <mesh ref={ISSref} scale={scale} >
-                    <primitive object={data.scene} />
-                </mesh>
-            </> :
-            <></>
-    )
+  let tleLine1 =
+    "1 25544U 98067A   21289.53582973  .00006882  00000-0  13428-3 0  9999";
+  let tleLine2 =
+    "2 25544  51.6432 102.7082 0004209 118.5037 316.3696 15.48711192307400";
+
+  let satelliteRecord = satellite.twoline2satrec(tleLine1, tleLine2);
+
+  const ISSref = useRef();
+  const data = useGLTF(iss);
+  const ellipseCurvePoints = new THREE.EllipseCurve(...ellipseArgs);
+  useFrame(({ clock }) => {
+    //let frame = clock.elapsedTime % rate;
+    //let point = ellipseCurvePoints.getPointAt(frame / rate);
+    let pos = [];
+    let positionAndVelocity = satellite.propagate(satelliteRecord, new Date());
+    let positionEci = positionAndVelocity.position;
+    //console.log("pos eci", positionEci);
+    let gmst = satellite.gstime(new Date());
+
+    if (positionEci) {
+      let positionGd = satellite.eciToGeodetic(positionEci, gmst);
+
+      // Geodetic coords are accessed via `longitude`, `latitude`,
+      let longitude = positionGd.longitude;
+      let latitude = positionGd.latitude;
+      //console.log("long", longitude, "    ", "latitude", latitude);
+      pos = convertLongLatToXYZ(latitude, longitude, earthRadius);
+      pos = pos.map((i) => i / 1000);
+    }
+    console.log(pos);
+    ISSref.current.position.x = pos[0];
+    ISSref.current.position.y = pos[1];
+    ISSref.current.position.z = pos[2];
+    ISSref.current.rotation.y = ISSref.current.rotation.x += 0.01;
+  });
+  return data ? (
+    <>
+      <mesh ref={ISSref} scale={scale}>
+        <primitive object={data.scene} />
+      </mesh>
+    </>
+  ) : (
+    <></>
+  );
 }

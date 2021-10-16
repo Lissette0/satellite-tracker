@@ -15,13 +15,15 @@ import { SkyBox } from "./SkyBox";
 import { convertLongLatToXYZ } from "./Helpers";
 import { GridHelper } from "three";
 
+import { earthRadius } from "satellite.js/lib/constants";
+
 // import { earthRadius } from "satellite.js/lib/constants";
 
 // import TestIss from "./TestIss";
 
 import ISS from "./Iss";
 
-export default function Earth() {
+export default function Earth({ scale }) {
   function Sphere({ position, texture, radius, rotation }) {
     const sphereRef = useRef();
     const cloudRef = useRef();
@@ -117,7 +119,7 @@ export default function Earth() {
       <Sphere
         position={[0, 0, 0]}
         texture={EarthTexture}
-        radius={2}
+        radius={earthRadius / scale}
         rotation={[23.4 * (Math.PI / 180), 0, 0]}
       />
       <Point position={coords} />
