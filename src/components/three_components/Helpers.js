@@ -1,7 +1,8 @@
 export function convertLongLatToXYZ(lat, long, radius) {
-  const earthRadius = radius; // km
-  let x = earthRadius * Math.cos(lat) * Math.cos(long);
-  let y = earthRadius * Math.cos(lat) * Math.sin(long);
-  let z = earthRadius * Math.sin(lat);
+  let radLat = (90 - lat) * (Math.PI / 180);
+  let radLong = (long + 180) * (Math.PI / 180)
+  let x = -((radius) * Math.sin(radLat) * Math.cos(radLong))
+  let y = ((radius) * Math.cos(radLat))
+  let z = ((radius) * Math.sin(radLat) * Math.sin(radLong))
   return [x, y, z];
 }

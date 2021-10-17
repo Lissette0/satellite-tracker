@@ -30,9 +30,10 @@ const Canvas = () => {
     Toronto: [43.6532, -79.3832],
     Paris: [48.8566, 2.3522],
   };
-  let coords = convertLongLatToXYZ(cities.Paris[0], cities.Paris[1], earthRadius);
+
+  let coords = convertLongLatToXYZ(cities.Paris[0], cities.Paris[1], earthRadius + 1000);
+  coords = coords.map((e) => (e / scale))
   console.log(coords)
-  coords = coords.map((e) => (e / 1000))
 
 
   const sampleTleArr = [
@@ -66,13 +67,13 @@ const Canvas = () => {
     },
   ];
   return (
-    <Canv camera={{ position: [0, 0, 10] }}>
+    <Canv camera={{ position: [0, 0, 20] }}>
       <gridHelper args={[50, 6, "skyblue", "white"]} />
       <Camera />
       <SkyBox />
       <Lights />
       <Earth scale={scale} />
-      <Point position={[coords]} />
+      <Point position={coords} />
       <ISS
         scale={[0.001, 0.001, 0.001]}
       />

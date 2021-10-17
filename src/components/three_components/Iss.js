@@ -38,7 +38,6 @@ export default function ISS({ scale }) {
     ISSref.current.position.x = pos[0];
     ISSref.current.position.y = pos[1];
     ISSref.current.position.z = pos[2];
-    ISSref.current.rotation.y = ISSref.current.rotation.x += 0.01;
   });
   return data ? (
     <>

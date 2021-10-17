@@ -22,7 +22,7 @@ export default function Earth({ scale }) {
     return (
       <>
         {/* Earth texture */}
-        <mesh position={position} rotation={rotation}>
+        <mesh position={position} >
           <sphereGeometry attach="geometry" args={[radius, 32, 32]} />
           <meshPhongMaterial specularMap={SpecularEarth} />
           <meshStandardMaterial
@@ -33,7 +33,7 @@ export default function Earth({ scale }) {
         </mesh>
 
         {/* Clouds texture */}
-        <mesh position={position} rotation={rotation}>
+        <mesh position={position} >
           <sphereGeometry attach="geometry" args={[radius + 0.02, 32, 32]} />
           <meshPhongMaterial
             map={Clouds}
@@ -52,8 +52,7 @@ export default function Earth({ scale }) {
       <Sphere
         position={[0, 0, 0]}
         texture={EarthTexture}
-        radius={(earthRadius - 1000) / scale}
-        rotation={[23.4 * (Math.PI / 180), 0, 0]}
+        radius={(earthRadius) / scale}
       />
       <OrbitControls
         enableZoom={true}
