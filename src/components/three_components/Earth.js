@@ -119,7 +119,7 @@ export default function Earth({ scale }) {
       <Sphere
         position={[0, 0, 0]}
         texture={EarthTexture}
-        radius={earthRadius / scale}
+        radius={(earthRadius - 1000) / scale}
         rotation={[23.4 * (Math.PI / 180), 0, 0]}
       />
       <Point position={coords} />
