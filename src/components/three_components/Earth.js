@@ -11,7 +11,7 @@ import EarthNormalTexture from "../assets/textures/earth/8k_earth_normal_map.jpg
 import EarthSpecularTexture from "../assets/textures/earth/8k_earth_specular_map.jpg";
 
 export default function Earth({ scale }) {
-  function Sphere({ position, texture, radius, rotation }) {
+  function Sphere({ position, texture, radius }) {
 
     // console.log("rot", rotation);
     // console.log("pos", position);
@@ -22,7 +22,7 @@ export default function Earth({ scale }) {
     return (
       <>
         {/* Earth texture */}
-        <mesh position={position} >
+        <mesh position={position}  >
           <sphereGeometry attach="geometry" args={[radius, 32, 32]} />
           <meshPhongMaterial specularMap={SpecularEarth} />
           <meshStandardMaterial
