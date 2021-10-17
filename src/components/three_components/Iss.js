@@ -1,13 +1,12 @@
-import React, { useRef, useState } from "react";
 import iss from "./iss.glb";
-import { useFrame } from "@react-three/fiber";
-import * as THREE from "three";
-import { useGLTF } from "@react-three/drei";
+import React, { useRef } from "react";
 import * as satellite from "satellite.js";
+import { useGLTF } from "@react-three/drei";
+import { useFrame } from "@react-three/fiber";
 import { convertLongLatToXYZ } from "./Helpers";
 import { earthRadius } from "satellite.js/lib/constants";
 
-export default function ISS({ z, ellipseArgs, rate, scale }) {
+export default function ISS({ scale }) {
   let tleLine1 =
     "1 25544U 98067A   21289.53582973  .00006882  00000-0  13428-3 0  9999";
   let tleLine2 =
@@ -17,10 +16,8 @@ export default function ISS({ z, ellipseArgs, rate, scale }) {
 
   const ISSref = useRef();
   const data = useGLTF(iss);
-  const ellipseCurvePoints = new THREE.EllipseCurve(...ellipseArgs);
+
   useFrame(({ clock }) => {
-    //let frame = clock.elapsedTime % rate;
-    //let point = ellipseCurvePoints.getPointAt(frame / rate);
     let pos = [];
     let positionAndVelocity = satellite.propagate(satelliteRecord, new Date());
     let positionEci = positionAndVelocity.position;
@@ -37,11 +34,10 @@ export default function ISS({ z, ellipseArgs, rate, scale }) {
       pos = convertLongLatToXYZ(latitude, longitude, earthRadius);
       pos = pos.map((i) => i / 1000);
     }
-    console.log(pos);
+    // console.log(pos);
     ISSref.current.position.x = pos[0];
     ISSref.current.position.y = pos[1];
     ISSref.current.position.z = pos[2];
-    ISSref.current.rotation.y = ISSref.current.rotation.x += 0.01;
   });
   return data ? (
     <>

@@ -1,15 +1,27 @@
 import { Canvas as Canv } from "@react-three/fiber";
 
-import React, { useRef } from "react";
-import Earth from "./Earth";
-import Lights from "./Lights";
-import { Stats } from "@react-three/drei";
 import ISS from "./Iss";
-import { convertLongLatToXYZ } from "./Helpers";
+import React from "react";
+import Earth from "./Earth";
+import SkyBox from './SkyBox'
+import Lights from "./Lights";
 import Camera from "./Camera";
 import Satellite from "./Satellite";
+import { Stats } from "@react-three/drei";
+import { convertLongLatToXYZ } from "./Helpers";
+import { earthRadius } from "satellite.js/lib/constants";
 
 const Canvas = () => {
+
+  function Point({ position }) {
+    return (
+      <mesh position={position}>
+        <sphereGeometry attach="geometry" args={[0.024, 32, 32]} />
+        <meshBasicMaterial attach="material" color="yellow" />
+      </mesh>
+    );
+  }
+
   const scale = 1000; // 1 unit = 1000km
   let cities = {
     LA: [34.052235, -118.243683],
@@ -18,13 +30,12 @@ const Canvas = () => {
     Toronto: [43.6532, -79.3832],
     Paris: [48.8566, 2.3522],
   };
-  let coords = convertLongLatToXYZ(cities.Paris[0], cities.Paris[1], 2);
-  // center_x, center_y, x_radius, y_radius, aStartAngle, aEndAngle, aClockwise, aRotation
-  let ecc = 0.00172;
-  let y_radius = 3;
-  let x_radius = Math.sqrt(Math.pow(y_radius, 2) / (1 - Math.pow(ecc, 2)));
-  let z = 0;
-  let ellipseArgs = [0, 0, x_radius, y_radius, 0, Math.PI * 2, false, 0];
+
+  let coords = convertLongLatToXYZ(cities.Paris[0], cities.Paris[1], earthRadius + 1000);
+  coords = coords.map((e) => (e / scale))
+  console.log(coords)
+
+
   const sampleTleArr = [
     {
       tle1: "1 43556U 18046C   21289.26262847  .00006255  00000-0  20632-3 0  9995",
@@ -56,17 +67,15 @@ const Canvas = () => {
     },
   ];
   return (
-    <Canv>
+    <Canv camera={{ position: [0, 0, 20] }}>
       <gridHelper args={[50, 6, "skyblue", "white"]} />
       <Camera />
+      <SkyBox />
       <Lights />
       <Earth scale={scale} />
+      <Point position={coords} />
       <ISS
-        position={[0, 8, 0]}
         scale={[0.001, 0.001, 0.001]}
-        rate={60}
-        ellipseArgs={ellipseArgs}
-        z={z}
       />
       {sampleTleArr.map((tle) => (
         <Satellite key={tle.tle1} tle1={tle.tle1} tle2={tle.tle2} />
