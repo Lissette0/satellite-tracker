@@ -3,7 +3,7 @@ import React, { useRef } from "react";
 import * as THREE from "three";
 import Satellite from "./Satellite";
 import EllipticalOrbit from "./EllipticalOrbit";
-import { OrbitControls, Stars } from "@react-three/drei";
+import { OrbitControls } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import pz from "../assets/textures/sun/sun_pz.png";
 import nx from "../assets/textures/sun/sun_nx.png";
