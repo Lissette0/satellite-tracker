@@ -2,11 +2,13 @@
   background: #2F303A;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   height:100vh;
-  /* width: 25%; */
+  width: 55px;
  }
 
+#back-icon{ 
+  float: right;}
 
-#input{
+#search-input{
   display: block;
   width: 95%;
   padding: 20px;
@@ -42,8 +44,52 @@
   height: 80%
 }
 
-#sidecloseIcon{
-  margin-right: 10px;
+#filter-content{
+  position: relative; 
+  background-color: #1B1B1B;
+  margin: 12px 12px 12px 12px;
+  height: 80%
+}
+
+.content{
+  color: white;
+  height: 90%;
+  overflow-x: hidden;
+  overflow-y:auto;
+}
+
+#all{
+  font-size: 18px;
+}
+
+.inner-content{
+  margin: 8px 8px 8px 8px;
+}
+
+.name{
+  cursor: pointer; 
+}
+
+
+/* 
+.sidecloseIcon:hover {
+  padding: 5px;
+  font-size: 20px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  color: #fff !important;
+} */
+
+.icon:hover {
+  border-color: white !important;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  color: #fff !important;
+}
+
+
+.sidecloseIcon{
+  margin-left: 5% ;
   float: left;
   cursor: pointer;
   font-size:20px;
@@ -74,7 +120,7 @@
   background: #2F303A;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   color: white;
-  width: 5%;
+  width: 3%;
 
 }
 
