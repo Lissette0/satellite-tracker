@@ -1,6 +1,6 @@
 import React, { Suspense } from "react";
 //import '../../Content.css';
-import Sidebar from "../Sidebar.js";
+import Sidebar from "../sidebar/Sidebar.js";
 // import Earth from '../three_components/Earth.js'
 import Canvas from "../three_components/Canvas.js";
 import Loading from "../Loading";
