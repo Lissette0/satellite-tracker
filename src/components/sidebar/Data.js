@@ -2,6 +2,8 @@ import React from "react";
 import './Sidebar.css';
 import { FaSatellite} from "react-icons/fa";
 
+
+//displays all of the satellites 
 class Data extends React.Component {
    
     // Constructor 
