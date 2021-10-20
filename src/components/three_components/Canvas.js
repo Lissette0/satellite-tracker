@@ -25,7 +25,7 @@ const Canvas = () => {
 
 
   useEffect(() => {
-    let url = "https://alanyu108-satellite-backend.herokuapp.com/api/satellites/pag/"
+    let url = "https://alanyu108-satellite-backend.herokuapp.com/api/satellites/page=1/"
     fetch(url)
       .then((res) => {
         if (res.status === 200)
