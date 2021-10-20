@@ -28,16 +28,17 @@ export default function ISS({ scale }) {
       let positionGd = satellite.eciToGeodetic(positionEci, gmst);
 
       // Geodetic coords are accessed via `longitude`, `latitude`,
-      let longitude = positionGd.longitude;
-      let latitude = positionGd.latitude;
+      let longitude = satellite.degreesLong(positionGd.longitude);
+      let latitude = satellite.degreesLat(positionGd.latitude);
       //console.log("long", longitude, "    ", "latitude", latitude);
-      pos = convertLongLatToXYZ(latitude, longitude, earthRadius);
+      pos = convertLongLatToXYZ(latitude, longitude, earthRadius + 1000);
       pos = pos.map((i) => i / 1000);
     }
     // console.log(pos);
     ISSref.current.position.x = pos[0];
     ISSref.current.position.y = pos[1];
     ISSref.current.position.z = pos[2];
+
   });
   return data ? (
     <>

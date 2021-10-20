@@ -27,7 +27,6 @@ export default function Satellite({ tle1, tle2 }) {
       pos = convertLongLatToXYZ(latitude, longitude, earthRadius + 1000);
       pos = pos.map((i) => i / 1000);
     }
-    console.log(earthRadius)
     satRef.current.position.x = pos[0];
     satRef.current.position.y = pos[1];
     satRef.current.position.z = pos[2];

@@ -31,7 +31,7 @@ const Canvas = () => {
     Paris: [48.8566, 2.3522],
   };
 
-  let coords = convertLongLatToXYZ(cities.Paris[0], cities.Paris[1], earthRadius + 1000);
+  let coords = convertLongLatToXYZ(cities.NY[0], cities.NY[1], earthRadius);
   coords = coords.map((e) => (e / scale))
   console.log(coords)
 
@@ -75,7 +75,7 @@ const Canvas = () => {
       <Earth scale={scale} />
       <Point position={coords} />
       <ISS
-        scale={[0.001, 0.001, 0.001]}
+        scale={[0.005, 0.005, 0.005]}
       />
       {sampleTleArr.map((tle) => (
         <Satellite key={tle.tle1} tle1={tle.tle1} tle2={tle.tle2} />
