@@ -42,7 +42,7 @@ export default function ISS({ scale }) {
   });
   return data ? (
     <>
-      <mesh ref={ISSref} scale={scale}>
+      <mesh ref={ISSref} scale={scale} >
         <primitive object={data.scene} />
       </mesh>
     </>
