@@ -1,18 +1,18 @@
 import { Canvas as Canv } from "@react-three/fiber";
 
 import ISS from "./Iss";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Earth from "./Earth";
-import SkyBox from './SkyBox'
+import SkyBox from "./SkyBox";
 import Lights from "./Lights";
 import Camera from "./Camera";
 import Satellite from "./Satellite";
 import { Stats } from "@react-three/drei";
 import { convertLongLatToXYZ } from "./Helpers";
 import { earthRadius } from "satellite.js/lib/constants";
+import axios from "axios";
 
 const Canvas = () => {
-
   function Point({ position }) {
     return (
       <mesh position={position}>
@@ -31,10 +31,21 @@ const Canvas = () => {
     Paris: [48.8566, 2.3522],
   };
 
-  let coords = convertLongLatToXYZ(cities.Paris[0], cities.Paris[1], earthRadius + 1000);
-  coords = coords.map((e) => (e / scale))
-  console.log(coords)
+  let coords = convertLongLatToXYZ(
+    cities.Paris[0],
+    cities.Paris[1],
+    earthRadius + 1000
+  );
+  coords = coords.map((e) => e / scale);
+  console.log(coords);
 
+  const [satellites, setSatellites] = useState([]);
+  useEffect(() => {
+    axios
+      .get("https://alanyu108-satellite-backend.herokuapp.com/api/satellites/")
+      .then((response) => response.data)
+      .then((data) => setSatellites(data));
+  }, []);
 
   const sampleTleArr = [
     {
@@ -74,11 +85,9 @@ const Canvas = () => {
       <Lights />
       <Earth scale={scale} />
       <Point position={coords} />
-      <ISS
-        scale={[0.001, 0.001, 0.001]}
-      />
-      {sampleTleArr.map((tle) => (
-        <Satellite key={tle.tle1} tle1={tle.tle1} tle2={tle.tle2} />
+      <ISS scale={[0.001, 0.001, 0.001]} />
+      {satellites.map((sat) => (
+        <Satellite key={sat.name} sat={sat} />
       ))}
       <Stats />
     </Canv>
