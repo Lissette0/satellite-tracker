@@ -25,16 +25,18 @@ const Canvas = () => {
 
 
   useEffect(() => {
-    let url = "https://alanyu108-satellite-backend.herokuapp.com/api/satellites/page=2/"
+    let url = "https://alanyu108-satellite-backend.herokuapp.com/api/satellites/pag/"
     fetch(url)
       .then((res) => {
         if (res.status === 200)
           return res.json()
       })
       .then((data) => {
-        setSatData([...data])
+        setSatData([...data]);
       })
-      .catch((e) => (console.error(e)))
+      .catch((e) => {
+        console.error(e);
+      });
   }, [])
 
 
@@ -62,7 +64,7 @@ const Canvas = () => {
         scale={[0.005, 0.005, 0.005]}
       />
 
-      {satData.length !== 0} ? {satData.map((sat) => (
+      {satData.map((sat) => (
         <Satellite
           key={sat.name}
           tle1={sat.tle_1}
@@ -70,7 +72,7 @@ const Canvas = () => {
           scale={[0.00025, 0.00025, 0.00025]}
           rotation={[0, -Math.PI / 2, 0]}
         />
-      ))} : <></>
+      ))}
 
 
 
