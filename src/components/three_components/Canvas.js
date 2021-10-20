@@ -11,7 +11,6 @@ import { Canvas as Canv } from "@react-three/fiber";
 import { earthRadius } from "satellite.js/lib/constants";
 
 const Canvas = () => {
-
   function Point({ position }) {
     return (
       <mesh position={position}>
@@ -22,7 +21,6 @@ const Canvas = () => {
   }
 
   const [satData, setSatData] = useState([])
-
 
   useEffect(() => {
     let url = "https://alanyu108-satellite-backend.herokuapp.com/api/satellites/page=1/"
@@ -74,11 +72,9 @@ const Canvas = () => {
         />
       ))}
 
-
-
       <Stats />
     </Canv>
   );
 };
 
-export default Canvas;
+export default React.memo(Canvas);
