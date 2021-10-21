@@ -9,7 +9,7 @@ import { Stats } from "@react-three/drei";
 import { convertLongLatToXYZ } from "./Helpers";
 import { Canvas as Canv } from "@react-three/fiber";
 import { earthRadius } from "satellite.js/lib/constants";
-import axios from "axios";
+import { OrbitPath } from "./OrbitPath";
 
 const Canvas = () => {
   function Point({ position }) {
@@ -22,6 +22,7 @@ const Canvas = () => {
   }
 
   const [satData, setSatData] = useState([])
+
 
   useEffect(() => {
     let url = "https://alanyu108-satellite-backend.herokuapp.com/api/satellites/page=1/"
@@ -37,7 +38,6 @@ const Canvas = () => {
         console.error(e);
       });
   }, [])
-
 
   const scale = 1000; // 1 unit = 1000km
   let cities = {
@@ -72,8 +72,8 @@ const Canvas = () => {
           rotation={[0, -Math.PI / 2, 0]}
         />
       ))}
-
       <Stats />
+      <OrbitPath position={[0, 0, 0]} radius={0.01} minutes={95} />
     </Canv>
   );
 };

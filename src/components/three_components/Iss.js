@@ -12,16 +12,16 @@ export default function ISS({ scale }) {
   let tleLine2 =
     "2 25544  51.6432 102.7082 0004209 118.5037 316.3696 15.48711192307400";
 
-  let satelliteRecord = satellite.twoline2satrec(tleLine1, tleLine2);
 
   const ISSref = useRef();
   const data = useGLTF(iss);
 
   useFrame(({ clock }) => {
     let pos = [];
+    let satelliteRecord = satellite.twoline2satrec(tleLine1, tleLine2);
     let positionAndVelocity = satellite.propagate(satelliteRecord, new Date());
     let positionEci = positionAndVelocity.position;
-    //console.log("pos eci", positionEci);
+
     let gmst = satellite.gstime(new Date());
 
     if (positionEci) {
@@ -30,11 +30,9 @@ export default function ISS({ scale }) {
       // Geodetic coords are accessed via `longitude`, `latitude`,
       let longitude = satellite.degreesLong(positionGd.longitude);
       let latitude = satellite.degreesLat(positionGd.latitude);
-      //console.log("long", longitude, "    ", "latitude", latitude);
-      pos = convertLongLatToXYZ(latitude, longitude, earthRadius + 1000);
+      pos = convertLongLatToXYZ(latitude, longitude, earthRadius + positionGd.height);
       pos = pos.map((i) => i / 1000);
     }
-    // console.log(pos);
     ISSref.current.position.x = pos[0];
     ISSref.current.position.y = pos[1];
     ISSref.current.position.z = pos[2];
