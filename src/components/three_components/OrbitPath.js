@@ -4,7 +4,7 @@ import * as THREE from "three"
 import { getPoints } from './Helpers'
 
 
-function OrbitPath({ position, radius, tle, minutes, color }) {
+function OrbitPath({ position, radius, tle, minutes, color = "#f3f3f3" }) {
     let curve = new THREE.CatmullRomCurve3(getPoints(minutes, tle))
     return (
         //path, tubular_segments, radius, radial_segments, closed

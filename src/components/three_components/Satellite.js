@@ -40,7 +40,12 @@ export default function Satellite({ tle1, tle2, scale, rotation, timeWindow }) {
     }
   });
   let randomColor = "#" + Math.floor(Math.random() * 16777215).toString(16);
-  console.log(future, past)
+  let colorLength = randomColor.split("").length
+  if (colorLength !== 7) {
+    for (let i = 0; i < (7 - colorLength); i++) {
+      randomColor += Math.floor(Math.random() * 10).toString()
+    }
+  }
 
   return (model ?
     <>
