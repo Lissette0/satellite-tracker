@@ -5,6 +5,7 @@ import { useFrame } from "@react-three/fiber";
 import { convertLongLatToXYZ } from "./Helpers";
 import { earthRadius } from "satellite.js/lib/constants";
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import { OrbitPath } from './OrbitPath';
 
 export default function Satellite({ tle1, tle2, scale, rotation }) {
   const satRef = useRef();
@@ -14,7 +15,6 @@ export default function Satellite({ tle1, tle2, scale, rotation }) {
   useEffect(() => {
     new GLTFLoader().load(sat, setModel)
   }, [])
-
   useFrame(({ clock }) => {
     if (satRef.current) {
       let pos = [];
@@ -40,10 +40,13 @@ export default function Satellite({ tle1, tle2, scale, rotation }) {
   });
 
   return (model ?
-    <mesh ref={satRef} scale={scale} rotation={rotation} onClick={(e) => console.log("click")}
-      onPointerOver={(e) => console.log("over")}>
-      <primitive object={model.scene} />
-    </mesh>
+    <>
+      <mesh ref={satRef} scale={scale} rotation={rotation} onClick={(e) => console.log("click")}
+        onPointerOver={(e) => console.log("over")}>
+        <primitive object={model.scene} />
+      </mesh>
+      <OrbitPath position={[0, 0, 0]} radius={0.01} minutes={95} tle={{ tle1, tle2 }} />
+    </>
     : null
   )
 }

@@ -9,7 +9,6 @@ import { Stats } from "@react-three/drei";
 import { convertLongLatToXYZ } from "./Helpers";
 import { Canvas as Canv } from "@react-three/fiber";
 import { earthRadius } from "satellite.js/lib/constants";
-import { OrbitPath } from "./OrbitPath";
 
 const Canvas = () => {
   function Point({ position }) {
@@ -51,17 +50,23 @@ const Canvas = () => {
   let coords = convertLongLatToXYZ(cities.NY[0], cities.NY[1], earthRadius);
   coords = coords.map((e) => (e / scale))
 
+  let iss_tle = {
+    tle1: "1 25544U 98067A   21289.53582973  .00006882  00000-0  13428-3 0  9999",
+    tle2: "2 25544  51.6432 102.7082 0004209 118.5037 316.3696 15.48711192307400",
+  }
+
   return (
     <Canv camera={{ position: [0, 0, 15] }}>
-      <gridHelper args={[50, 6, "skyblue", "white"]} />
-      <Camera />
+      {/* <gridHelper args={[50, 6, "skyblue", "white"]} />
+      <Camera /> */}
       <SkyBox />
       <Lights />
       <Earth scale={scale} />
       <Point position={coords} />
-      <ISS
+      {/* <ISS
         scale={[0.005, 0.005, 0.005]}
-      />
+        tle={iss_tle}
+      /> */}
 
       {satData.map((sat) => (
         <Satellite
@@ -73,7 +78,6 @@ const Canvas = () => {
         />
       ))}
       <Stats />
-      <OrbitPath position={[0, 0, 0]} radius={0.01} minutes={95} />
     </Canv>
   );
 };

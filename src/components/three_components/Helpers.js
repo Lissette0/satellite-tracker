@@ -1,4 +1,5 @@
 import * as satellite from 'satellite.js'
+import * as THREE from "three"
 
 export function convertLongLatToXYZ(lat, long, radius) {
   let radLat = (90 - lat) * (Math.PI / 180);
@@ -9,9 +10,8 @@ export function convertLongLatToXYZ(lat, long, radius) {
   return [x, y, z];
 }
 
-export function getPoints(minutes) {
-  const tle1 = "1 25544U 98067A   21289.53582973  .00006882  00000-0  13428-3 0  9999";
-  const tle2 = "2 25544  51.6432 102.7082 0004209 118.5037 316.3696 15.48711192307400";
+export function getPoints(minutes, tle) {
+  const { tle1, tle2 } = tle
   const satRecord = satellite.twoline2satrec(tle1, tle2);
 
   let points = []
@@ -30,7 +30,7 @@ export function getPoints(minutes) {
     pos = pos.map((v) => (v / 1000))
     points.push(pos)
   }
-  return points
+  return points.map((point) => (new THREE.Vector3(...point)))
 }
 
 
