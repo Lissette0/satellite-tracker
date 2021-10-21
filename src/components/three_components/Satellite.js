@@ -5,12 +5,13 @@ import { useFrame } from "@react-three/fiber";
 import { convertLongLatToXYZ } from "./Helpers";
 import { earthRadius } from "satellite.js/lib/constants";
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import { OrbitPath } from './OrbitPath';
+import OrbitPath from './OrbitPath';
 
-export default function Satellite({ tle1, tle2, scale, rotation }) {
+export default function Satellite({ tle1, tle2, scale, rotation, timeWindow }) {
   const satRef = useRef();
 
   const [model, setModel] = useState(null)
+  const [future, past] = [Math.floor(timeWindow / 2), -1 * Math.ceil(timeWindow / 2)]
 
   useEffect(() => {
     new GLTFLoader().load(sat, setModel)
@@ -38,6 +39,8 @@ export default function Satellite({ tle1, tle2, scale, rotation }) {
       satRef.current.position.z = pos[2];
     }
   });
+  let randomColor = "#" + Math.floor(Math.random() * 16777215).toString(16);
+  console.log(future, past)
 
   return (model ?
     <>
@@ -45,7 +48,8 @@ export default function Satellite({ tle1, tle2, scale, rotation }) {
         onPointerOver={(e) => console.log("over")}>
         <primitive object={model.scene} />
       </mesh>
-      <OrbitPath position={[0, 0, 0]} radius={0.01} minutes={95} tle={{ tle1, tle2 }} />
+      <OrbitPath position={[0, 0, 0]} radius={0.01} minutes={future} tle={{ tle1, tle2 }} color={randomColor} />
+      <OrbitPath position={[0, 0, 0]} radius={0.01} minutes={past} tle={{ tle1, tle2 }} color={randomColor} />
     </>
     : null
   )

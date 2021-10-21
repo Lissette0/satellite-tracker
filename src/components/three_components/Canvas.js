@@ -1,5 +1,4 @@
 import ISS from "./Iss";
-import React, { useEffect, useState } from "react";
 import Earth from "./Earth";
 import SkyBox from "./SkyBox";
 import Lights from "./Lights";
@@ -7,6 +6,7 @@ import Camera from "./Camera";
 import Satellite from "./Satellite";
 import { Stats } from "@react-three/drei";
 import { convertLongLatToXYZ } from "./Helpers";
+import React, { useEffect, useState } from "react";
 import { Canvas as Canv } from "@react-three/fiber";
 import { earthRadius } from "satellite.js/lib/constants";
 
@@ -22,9 +22,8 @@ const Canvas = () => {
 
   const [satData, setSatData] = useState([])
 
-
   useEffect(() => {
-    let url = "https://alanyu108-satellite-backend.herokuapp.com/api/satellites/page=1/"
+    let url = "https://alanyu108-satellite-backend.herokuapp.com/api/satellites/page=2/"
     fetch(url)
       .then((res) => {
         if (res.status === 200)
@@ -54,7 +53,6 @@ const Canvas = () => {
     tle1: "1 25544U 98067A   21289.53582973  .00006882  00000-0  13428-3 0  9999",
     tle2: "2 25544  51.6432 102.7082 0004209 118.5037 316.3696 15.48711192307400",
   }
-
   return (
     <Canv camera={{ position: [0, 0, 15] }}>
       {/* <gridHelper args={[50, 6, "skyblue", "white"]} />
@@ -75,6 +73,7 @@ const Canvas = () => {
           tle2={sat.tle_2}
           scale={[0.00025, 0.00025, 0.00025]}
           rotation={[0, -Math.PI / 2, 0]}
+          timeWindow={60}
         />
       ))}
       <Stats />

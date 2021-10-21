@@ -11,14 +11,26 @@ export function convertLongLatToXYZ(lat, long, radius) {
 }
 
 export function getPoints(minutes, tle) {
+  let points = []
   const { tle1, tle2 } = tle
   const satRecord = satellite.twoline2satrec(tle1, tle2);
 
-  let points = []
+  minutes = Math.floor(minutes);
+
+  let sign = true;
+  if (minutes < 0) {
+    minutes = minutes * -1
+    sign = false
+  }
 
   for (let i = 0; i < minutes; i++) {
     const date = new Date()
-    date.setMinutes(date.getMinutes() - i)
+    if (sign) {
+      date.setMinutes(date.getMinutes() + i)
+    }
+    else {
+      date.setMinutes(date.getMinutes() - i)
+    }
 
     const positionAndVelocity = satellite.propagate(satRecord, date);
     const positionEci = positionAndVelocity.position;
@@ -30,7 +42,10 @@ export function getPoints(minutes, tle) {
     pos = pos.map((v) => (v / 1000))
     points.push(pos)
   }
+
   return points.map((point) => (new THREE.Vector3(...point)))
+
+
 }
 
 
