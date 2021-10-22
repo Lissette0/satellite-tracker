@@ -6,16 +6,23 @@ import { convertLongLatToXYZ } from "./Helpers";
 import { earthRadius } from "satellite.js/lib/constants";
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import OrbitPath from './OrbitPath';
+import { getPoints } from './Helpers';
 
-export default function Satellite({ tle1, tle2, scale, rotation, timeWindow }) {
+export default function Satellite({ tle1, tle2, scale, rotation, timeWindow, pathColor }) {
   const satRef = useRef();
 
   const [model, setModel] = useState(null)
-  const [future, past] = [Math.floor(timeWindow / 2), -1 * Math.ceil(timeWindow / 2)]
+
+  let [points, setPoints] = useState(getPoints(timeWindow, { tle1, tle2 }))
+
+  setInterval(() => {
+    setPoints(getPoints(timeWindow, { tle1, tle2 }))
+  }, 30 * 1000);
 
   useEffect(() => {
     new GLTFLoader().load(sat, setModel)
   }, [])
+
   useFrame(({ clock }) => {
     if (satRef.current) {
       let pos = [];
@@ -33,19 +40,13 @@ export default function Satellite({ tle1, tle2, scale, rotation, timeWindow }) {
         //to add altitude, increase the radius
         pos = convertLongLatToXYZ(latitude, longitude, earthRadius + positionGd.height);
         pos = pos.map((i) => i / 1000);
+        satRef.current.position.x = pos[0];
+        satRef.current.position.y = pos[1];
+        satRef.current.position.z = pos[2];
       }
-      satRef.current.position.x = pos[0];
-      satRef.current.position.y = pos[1];
-      satRef.current.position.z = pos[2];
     }
   });
-  let randomColor = "#" + Math.floor(Math.random() * 16777215).toString(16);
-  let colorLength = randomColor.split("").length
-  if (colorLength !== 7) {
-    for (let i = 0; i < (7 - colorLength); i++) {
-      randomColor += Math.floor(Math.random() * 10).toString()
-    }
-  }
+
 
   return (model ?
     <>
@@ -53,8 +54,7 @@ export default function Satellite({ tle1, tle2, scale, rotation, timeWindow }) {
         onPointerOver={(e) => console.log("over")}>
         <primitive object={model.scene} />
       </mesh>
-      <OrbitPath position={[0, 0, 0]} radius={0.01} minutes={future} tle={{ tle1, tle2 }} color={randomColor} />
-      <OrbitPath position={[0, 0, 0]} radius={0.01} minutes={past} tle={{ tle1, tle2 }} color={randomColor} />
+      <OrbitPath position={[0, 0, 0]} radius={0.01} color={pathColor} points={points} />
     </>
     : null
   )

@@ -15,23 +15,9 @@ export function getPoints(minutes, tle) {
   const { tle1, tle2 } = tle
   const satRecord = satellite.twoline2satrec(tle1, tle2);
 
-  minutes = Math.floor(minutes);
-
-  let sign = true;
-  if (minutes < 0) {
-    minutes = minutes * -1
-    sign = false
-  }
-
   for (let i = 0; i < minutes; i++) {
     const date = new Date()
-    if (sign) {
-      date.setMinutes(date.getMinutes() + i)
-    }
-    else {
-      date.setMinutes(date.getMinutes() - i)
-    }
-
+    date.setMinutes(date.getMinutes() - i)
     const positionAndVelocity = satellite.propagate(satRecord, date);
     const positionEci = positionAndVelocity.position;
     const gmst = satellite.gstime(date);
@@ -44,8 +30,6 @@ export function getPoints(minutes, tle) {
   }
 
   return points.map((point) => (new THREE.Vector3(...point)))
-
-
 }
 
 
