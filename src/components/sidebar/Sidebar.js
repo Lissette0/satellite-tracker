@@ -46,7 +46,6 @@ const NavIcon = styled(Link)`
 const NavIcon1 = styled(Link)`
     float: right;
     color: white;
-    margin: 8px 8px 8px 8px;
     font-size: 2rem;
     position: relative; 
     
@@ -81,6 +80,8 @@ const SidebarNav2 = styled.nav`
 
 `;
 
+
+
  const Sidebar = () => {
     const [sidebar, setSidebar] = useState(false);
     const showSidebar = () => setSidebar(!sidebar);
@@ -102,7 +103,7 @@ const SidebarNav2 = styled.nav`
 
             <SidebarNav2 sidebar2 = {sidebar2}>
                     <NavIcon1 to='#' >
-                        <IoChevronBack onClick={showSidebar2} className="icon" id= "back-icon"/>
+                        <IoChevronBack style ={{margin: "8px 8px 8px 8px"}} onClick={showSidebar2} className="icon" id= "back-icon"/>
                     </NavIcon1>
                     <Search/>
                     {/* <div id = 'content'>
@@ -113,7 +114,7 @@ const SidebarNav2 = styled.nav`
 
             <SidebarNav sidebar = {sidebar}>
                     <NavIcon1 to='#' >
-                        <IoChevronBack onClick={showSidebar} className="icon"/>
+                        <IoChevronBack style ={{margin: "8px 8px 0px 0px"}} onClick={showSidebar} className="icon"  id= "back-icon"/>
                     </NavIcon1>
                     {/* <input id='input' type="text" name="name"  autoComplete="off" placeholder='Satellite Name' /> */}
                     <div id = 'filter-content'>
