@@ -83,14 +83,14 @@ const Canvas = () => {
       <Lights />
       <Earth scale={scale} />
       <Point position={coords} />
-      {/* <ISS
+      <ISS
         scale={[0.005, 0.005, 0.005]}
         tle={iss_tle}
-        timeWindow={60}
+        timeWindow={30}
         pathColor={colorsRef.current[0]}
-      /> */}
+      />
 
-      {satData.map((sat, i) => (
+      {/* {satData.map((sat, i) => (
         <Satellite
           key={sat.name}
           tle1={sat.tle_1}
@@ -100,7 +100,7 @@ const Canvas = () => {
           timeWindow={30}
           pathColor={colorsRef.current[i]}
         />
-      ))}
+      ))} */}
       <Stats />
     </Canv>
   );
