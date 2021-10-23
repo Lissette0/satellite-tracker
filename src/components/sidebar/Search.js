@@ -16,8 +16,9 @@ class Search extends Component{
 
         }
 
-        this.cancel = '';
-    }
+    this.cancel = "";
+  }
+
 
     fetchSearchResults = (query) =>{
         const searchUrl= `https://alanyu108-satellite-backend.herokuapp.com/api/satellite/name=${query.toUpperCase()}/`
@@ -114,7 +115,7 @@ class Search extends Component{
                     }
                     <div className="labels " id = "all"> <FaSatellite id= 'filterIcon'/> All Satellites</div>
                     <hr/>
-                    <Data/>
+                    <Data handleSatChange={this.props.handleSatChange} />
   
                 </div> 
 
@@ -123,6 +124,6 @@ class Search extends Component{
         )
     }
 }
-
+     
 
 export default Search;
