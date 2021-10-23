@@ -117,7 +117,8 @@ const Sidebar = ({ handleSatChange }) => {
             <IoChevronBack
               style ={{margin: "8px 8px 0px 0px"}} 
               onClick={showSidebar} 
-              className="icon" />
+              className="icon"
+              id="back-icon" />
           </NavIcon1>
           {/* <input id='input' type="text" name="name"  autoComplete="off" placeholder='Satellite Name' /> */}
           <div id="filter-content">
