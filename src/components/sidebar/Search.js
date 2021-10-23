@@ -2,7 +2,8 @@ import React, { Component }  from 'react'
 import './Sidebar.css';
 import axios from 'axios';
 import Data from './Data';
-
+import { BsSearch} from "react-icons/bs";
+import { FaSatellite} from "react-icons/fa";
 
 class Search extends Component{
     constructor( props){
@@ -18,9 +19,8 @@ class Search extends Component{
         this.cancel = '';
     }
 
-
     fetchSearchResults = (query) =>{
-        const searchUrl= `https://alanyu108-satellite-backend.herokuapp.com/api/satellite/name=${query}/`
+        const searchUrl= `https://alanyu108-satellite-backend.herokuapp.com/api/satellite/name=${query.toUpperCase()}/`
 
         if(this.cancel){
             this.cancel.cancel();
@@ -50,32 +50,45 @@ class Search extends Component{
 			} )
     };
 
-
-
     handleOnInputChange = (event) => {
         const query = event.target.value;
-        this.setState({query: query, message: ''}, () =>{
-            this.fetchSearchResults(query);
-        } );
+        if(!query){
+            this.setState({query, results: {}, message:''})
+        }
+        else{
+            this.setState({query: query, message: ''}, () =>{
+                this.fetchSearchResults(query);
+            } );
+        }
      };
 
      renderSearchResults = () => {
 		const { results } = this.state;
 
-		if ( Object.keys( results ).length && results.length ) {
-			return (
-				<div className="results-container">
-					{ results.map( result => {
-						return (
-							<div key={ result.name }>
-								<h6 className="image-username">{result.name}</h6>
-							</div>
-						)
-					} ) }
-
-				</div>
-			)
-		}
+        if ( Object.keys( results ).length ) {
+        return (
+            <>
+                <div className="labels " id = "all"> <BsSearch id= 'filterIcon'/> Search Result</div>
+                <hr/>
+                <div key={ results.name }>
+                    <div className= "inner-content">
+                            <p> <b className="name">{ results.name }</b> </p>
+                            <p> Classification: { results.classification }</p>
+                            <p>International designation: { results.international_designation } </p>
+                            <p>Description: { results.description } </p>
+                    </div>
+                </div>
+                <hr/>
+            </>
+            )
+		}else{
+            return(
+                <>
+                    <div className="labels " id = "all"> <BsSearch id= 'filterIcon'/> Search Result</div>
+                    <p className= "inner-content"> Not Found </p>
+                </>
+            )
+        }
 	};
 
     render(){
@@ -95,8 +108,14 @@ class Search extends Component{
 
                 {/* RESULTS */}
                 <div id = 'content'>
-                    {this.renderSearchResults()}   
-                    <Data/>    
+                    {
+                        this.state.query.length === 0 ? null  
+                             : this.renderSearchResults()    
+                    }
+                    <div className="labels " id = "all"> <FaSatellite id= 'filterIcon'/> All Satellites</div>
+                    <hr/>
+                    <Data/>
+  
                 </div> 
 
                 

@@ -1,6 +1,5 @@
 import React from "react";
 import './Sidebar.css';
-import { FaSatellite} from "react-icons/fa";
 
 
 //displays all of the satellites 
@@ -35,22 +34,25 @@ class Data extends React.Component {
             <h1> loading... </h1> </div> ;
    
         return (
+        
         <div className = "content">
-            <div className="labels " id = "all"> <FaSatellite id= 'filterIcon'/> All Satellites</div>
-            <hr/>  {
-                items.map((item) => ( 
-                <ol key = { item.name } >
-                    <div className= "inner-content">
-                        <p> <b className="name">{ item.name }</b> </p>
-                        <p> Classification: { item.classification }</p>
-                        <p>International designation: { item.international_designation } </p>
-                        <p>Description: { item.description } </p>
-                    </div>
-                    <hr/>
-                    </ol>
-                ))
-            }
-        </div>
+            <div id="content1">
+                  {
+                    items.map((item) => ( 
+                    <ol key = { item.name } >
+                        <div className= "inner-content">
+                            <p> <b className="name">{ item.name }</b> </p>
+                            <p> Classification: { item.classification }</p>
+                            <p>International designation: { item.international_designation } </p>
+                            <p>Description: { item.description } </p>
+                        </div>
+                        <hr/>
+                        </ol>
+                    ))
+                }
+            </div>
+           </div>
+        
     );
 }
 }
