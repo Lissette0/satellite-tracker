@@ -45,7 +45,6 @@ const NavIcon = styled(Link)`
 const NavIcon1 = styled(Link)`
   float: right;
   color: white;
-  margin: 8px 8px 8px 8px;
   font-size: 2rem;
   position: relative;
 `;
@@ -101,6 +100,7 @@ const Sidebar = ({ handleSatChange }) => {
         <SidebarNav2 sidebar2={sidebar2}>
           <NavIcon1 to="#">
             <IoChevronBack
+              style ={{margin: "8px 8px 8px 8px"}}
               onClick={showSidebar2}
               className="icon"
               id="back-icon"
@@ -114,7 +114,11 @@ const Sidebar = ({ handleSatChange }) => {
 
         <SidebarNav sidebar={sidebar}>
           <NavIcon1 to="#">
-            <IoChevronBack onClick={showSidebar} className="icon" />
+            <IoChevronBack
+              style ={{margin: "8px 8px 0px 0px"}} 
+              onClick={showSidebar} 
+              className="icon"
+              id="back-icon" />
           </NavIcon1>
           {/* <input id='input' type="text" name="name"  autoComplete="off" placeholder='Satellite Name' /> */}
           <div id="filter-content">
@@ -144,7 +148,7 @@ const Sidebar = ({ handleSatChange }) => {
         </SidebarNav>
       </div>
     </>
-  );
-};
+  )
+}
 
 export default Sidebar;

@@ -1,6 +1,5 @@
 import React from "react";
 import "./Sidebar.css";
-import { FaSatellite } from "react-icons/fa";
 
 //displays all of the satellites
 class Data extends React.Component {
@@ -37,36 +36,33 @@ class Data extends React.Component {
 
     return (
       <div className="content">
-        <div className="labels " id="all">
-          {" "}
-          <FaSatellite id="filterIcon" /> All Satellites
+        <div id = "content1">
+            {items.map((item) => (
+            <ol key={item.name}>
+                <div className="inner-content">
+                <p>
+                    {" "}
+                    <b className="name">{item.name}</b>{" "}
+                </p>
+                <p> Classification: {item.classification}</p>
+                <p>
+                    International designation: {item.international_designation}{" "}
+                </p>
+                <p>Description: {item.description} </p>
+                <button
+                    onClick={() => this.props.handleSatChange(item)}
+                    className="pl-2 pr-2 mr-2 border-2 border-white-600 "
+                >
+                    Display Satellite
+                </button>
+                <button className="pl-2 pr-2 mr-2 border-2 border-white-600">
+                    Show Path
+                </button>
+                </div>
+                <hr />
+            </ol>
+            ))}
         </div>
-        <hr />{" "}
-        {items.map((item) => (
-          <ol key={item.name}>
-            <div className="inner-content">
-              <p>
-                {" "}
-                <b className="name">{item.name}</b>{" "}
-              </p>
-              <p> Classification: {item.classification}</p>
-              <p>
-                International designation: {item.international_designation}{" "}
-              </p>
-              <p>Description: {item.description} </p>
-              <button
-                onClick={() => this.props.handleSatChange(item)}
-                className="pl-2 pr-2 mr-2 border-2 border-white-600 "
-              >
-                Display Satellite
-              </button>
-              <button className="pl-2 pr-2 mr-2 border-2 border-white-600">
-                Show Path
-              </button>
-            </div>
-            <hr />
-          </ol>
-        ))}
       </div>
     );
   }

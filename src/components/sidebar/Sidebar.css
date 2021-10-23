@@ -6,7 +6,8 @@
  }
 
 #back-icon{ 
-  float: right;}
+  float: right;
+  }
 
 #search-input{
   display: block;
@@ -41,7 +42,7 @@
 #content{
   background-color: #1B1B1B;
   margin: 12px 12px 12px 12px;
-  height: 80%
+  height: 70vh
 }
 
 #filter-content{
@@ -58,11 +59,19 @@
   overflow-y:auto;
 }
 
+/* .content1{
+  color: white;
+  overflow-x: hidden;
+  overflow-y:auto;
+} */
+
 #all{
   font-size: 18px;
+  background-color: #242424;
 }
 
 .inner-content{
+  color: white;
   margin: 8px 8px 8px 8px;
 }
 
@@ -133,9 +142,10 @@
 }
 
 .labels{
+  background-color: #1B1B1B;
   color:white;
   font-size: 100%;
-  margin: 10px 10px 10px 10px
+  padding: 10px 10px 10px 10px;
 }
 
 
@@ -146,4 +156,11 @@
 hr{
   border: 0; 
   border-top: 1px solid #2F303A;
+}
+
+#dropIcon:hover {
+  border-color: white !important;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  color: #fff !important;
 }
