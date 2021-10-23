@@ -7,29 +7,7 @@ import Loading from "../Loading";
 import "./Content.css";
 
 function Content() {
-  const [currentSat, setCurrentSat] = useState({
-    name: "CALSPHERE 2",
-    tle_1: "1 00902U 64063E 21260.43098247 .00000045 00000-0 53848-4 0 9999",
-    tle_2:
-      "2 00902 90.1793 38.9145 0017201 215.2284 208.5622 13.52699608621864",
-    description: "",
-    norad: "00902",
-    classification: "U",
-    international_designation: "64063E",
-    epoch_year: 2021,
-    epoch_day: "260.43098247",
-    first_derivative_mean_motion: "0.000000450",
-    second_derivative_mean_motion: "0.000000000",
-    bstar: "0.0000538480",
-    set_number: 999,
-    inclination: "90.1793",
-    raan: "38.9145",
-    eccentricity: "0.0017201000",
-    argp: "215.2284",
-    mean_anomaly: "208.5622",
-    mean_motion: "13.52699608",
-    rev_num: 62186,
-  });
+  const [currentSat, setCurrentSat] = useState({});
 
   const handleSatChange = (sat) => {
     //console.log(sat);
