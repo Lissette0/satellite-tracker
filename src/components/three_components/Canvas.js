@@ -85,14 +85,22 @@ const Canvas = ({ sat }) => {
         timeWindow={30}
         pathColor={colorsRef.current[0]}
       />
-      <Satellite
-        tle1={sat.tle_1}
-        tle2={sat.tle_2}
-        scale={[0.00025, 0.00025, 0.00025]}
-        rotation={[0, -Math.PI / 2, 0]}
-        timeWindow={30}
-        pathColor={colorsRef.current[0]}
-      />
+      {sat &&
+      !(
+        Object.keys(sat).length === 0 &&
+        Object.getPrototypeOf(sat) === Object.prototype
+      ) ? (
+        <Satellite
+          tle1={sat.tle_1}
+          tle2={sat.tle_2}
+          scale={[0.00025, 0.00025, 0.00025]}
+          rotation={[0, -Math.PI / 2, 0]}
+          timeWindow={30}
+          pathColor={colorsRef.current[0]}
+        />
+      ) : (
+        <></>
+      )}
 
       {/* {satData.map((sat, i) => (
         <Satellite
