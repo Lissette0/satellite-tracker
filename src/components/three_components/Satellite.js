@@ -2,11 +2,10 @@ import sat from "./satellite.glb";
 import React, { useRef, useEffect, useState } from "react";
 import * as satelliteFunction from "satellite.js";
 import { useFrame } from "@react-three/fiber";
-import { convertLongLatToXYZ, useInterval } from "./Helpers";
+import { convertLongLatToXYZ } from "./Helpers";
 import { earthRadius } from "satellite.js/lib/constants";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import OrbitPath from "./OrbitPath";
-import { getPoints } from "./Helpers";
 import * as THREE from "three";
 
 export default function Satellite({

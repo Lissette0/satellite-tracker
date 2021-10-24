@@ -1,7 +1,6 @@
 import React from "react";
 import { Tube } from "@react-three/drei";
 import * as THREE from "three";
-import { dispose } from "@react-three/fiber";
 
 function OrbitPath({ position, radius, color = "#f3f3f3", points }) {
   if (points) {
