@@ -83,19 +83,30 @@ class Search extends Component {
                 <>
                     <div className="labels " id="all"> <BsSearch id='filterIcon' /> Search Result</div>
                     <hr />
-                    {results.map((sat) => (
-                        <>
-                            <div key={sat.name}>
-                                <div className="inner-content">
-                                    <p> <b className="name">{sat.name}</b> </p>
-                                    <p> Classification: {sat.classification}</p>
-                                    <p>International designation: {sat.international_designation} </p>
-                                    <p>Description: {sat.description} </p>
+                    <div id='search-result' >
+                        {results.map((sat) => (
+                            <>
+                                <div key={sat.name}>
+                                    <div className="inner-content">
+                                        <p> <b className="name">{sat.name}</b> </p>
+                                        <p> Classification: {sat.classification}</p>
+                                        <p>International designation: {sat.international_designation} </p>
+                                        <p>Description: {sat.description} </p>
+                                        <button
+                                        onClick={() => this.props.handleSatChange(sat)}
+                                        className="pl-2 pr-2 mr-2 border-2 border-white-600 "
+                                        >
+                                            Display Satellite
+                                        </button>
+                                        <button className="pl-2 pr-2 mr-2 border-2 border-white-600">
+                                            Show Path
+                                        </button>
+                                    </div>
                                 </div>
-                            </div>
-                            <hr />
-                        </>
-                    ))}
+                                <hr />
+                            </>
+                        ))}
+                    </div>
                 </>
             )
 
