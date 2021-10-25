@@ -1,6 +1,6 @@
 import * as satellite from "satellite.js";
 import * as THREE from "three";
-import React, { useState, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 
 export function convertLongLatToXYZ(lat, long, radius) {
   let radLat = (90 - lat) * (Math.PI / 180);

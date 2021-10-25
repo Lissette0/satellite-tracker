@@ -45,6 +45,13 @@
   height: 70vh
 }
 
+#search-result{
+  color: white;
+  height: 90%;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
 #filter-content{
   position: relative; 
   background-color: #1B1B1B;
