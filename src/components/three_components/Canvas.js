@@ -9,39 +9,13 @@ import { convertLongLatToXYZ } from "./Helpers";
 import React, { useEffect, useState, useRef } from "react";
 import { Canvas as Canv } from "@react-three/fiber";
 import { earthRadius } from "satellite.js/lib/constants";
-import styled from "styled-components";
-import { Html } from "@react-three/drei";
 
 const Canvas = ({ sat }) => {
   function Point({ position }) {
-    const [tag, setTag] = React.useState(false)
     return (
-      <mesh
-        position={position}
-        onPointerOver={() => {
-          setTag(true)
-        }}
-        onPointerLeave={() => {
-          setTag(false)
-        }}
-      >
+      <mesh position={position}>
         <sphereGeometry attach="geometry" args={[0.024, 32, 32]} />
         <meshBasicMaterial attach="material" color="yellow" />
-        <Html transform distanceFactor={10} center zIndexRange={[100, 0]} >
-          {
-            tag &&
-            <div style={{
-              textAlign: "left",
-              background: "#202035",
-              color: "white",
-              borderRadius: "5 px",
-              fontSize: "0.5 rem"
-            }}>
-              New York
-            </div>
-          }
-
-        </Html>
       </mesh>
     );
   }
@@ -97,8 +71,13 @@ const Canvas = ({ sat }) => {
   }
   colorsRef.current = colors;
 
+
+
+
+
   return (
     <Canv camera={{ position: [0, 0, 15] }}>
+
       {/* <gridHelper args={[50, 6, "skyblue", "white"]} />
       <Camera /> */}
       <SkyBox />
