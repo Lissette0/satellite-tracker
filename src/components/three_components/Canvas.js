@@ -9,13 +9,39 @@ import { convertLongLatToXYZ } from "./Helpers";
 import React, { useEffect, useState, useRef } from "react";
 import { Canvas as Canv } from "@react-three/fiber";
 import { earthRadius } from "satellite.js/lib/constants";
+import styled from "styled-components";
+import { Html } from "@react-three/drei";
 
 const Canvas = ({ sat }) => {
   function Point({ position }) {
+    const [tag, setTag] = React.useState(false)
     return (
-      <mesh position={position}>
+      <mesh
+        position={position}
+        onPointerOver={() => {
+          setTag(true)
+        }}
+        onPointerLeave={() => {
+          setTag(false)
+        }}
+      >
         <sphereGeometry attach="geometry" args={[0.024, 32, 32]} />
         <meshBasicMaterial attach="material" color="yellow" />
+        <Html transform distanceFactor={10} center zIndexRange={[100, 0]} >
+          {
+            tag &&
+            <div style={{
+              textAlign: "left",
+              background: "#202035",
+              color: "white",
+              borderRadius: "5 px",
+              fontSize: "0.5 rem"
+            }}>
+              New York
+            </div>
+          }
+
+        </Html>
       </mesh>
     );
   }
@@ -86,10 +112,10 @@ const Canvas = ({ sat }) => {
         pathColor={colorsRef.current[0]}
       />
       {sat &&
-      !(
-        Object.keys(sat).length === 0 &&
-        Object.getPrototypeOf(sat) === Object.prototype
-      ) ? (
+        !(
+          Object.keys(sat).length === 0 &&
+          Object.getPrototypeOf(sat) === Object.prototype
+        ) ? (
         <Satellite
           tle1={sat.tle_1}
           tle2={sat.tle_2}
