@@ -2,39 +2,43 @@ import React from 'react'
 import { useThree } from "@react-three/fiber"
 
 //https://codesandbox.io/s/react-three-fiber-hud-water-fxaa-forked-4bjrc?file=/src/index.js
-export default function Text({ name, scale }) {
+
+function printText(context, font, name, x, y) {
+    context.font = font
+    context.fillStyle = 'white'
+    context.textBaseline = 'middle'
+    context.fillText(name, x, y)
+}
+
+export default function Text({ name, position }) {
     const textCanvas = React.useMemo(() => {
         const canvas = document.createElement('canvas')
         const context = canvas.getContext('2d')
-        const width = 250
-        const height = 40
-        canvas.style.position = 'absolute'
-        canvas.style.top = 'calc(50% - 20px)'
-        canvas.style.width = width + '250px'
-        canvas.style.height = height + '40px'
-        canvas.width = width * 20
-        canvas.height = height * 20
+        const width = 125 * 20
+        const height = 40 * 20
+
+        canvas.width = width
+        canvas.height = height
         context.scale(20, 20)
-        context.fillStyle = '#202035'
+
+        context.fillStyle = "rgba(20, 20, 35, 0.75)"
         context.fillRect(0, 0, width, height)
-        const fontSize = 32
-        context.font = `bold ${fontSize}px Arial, sans-serif`
-        context.fillStyle = 'black'
-        context.textAlign = 'center'
-        context.textBaseline = 'middle'
-        const x = width / 2
-        const y = height / 2
-        context.fillText(name, x, y)
+
+        const fontSize = 10
+        const font = ` ${fontSize}px Arial, sans-serif`
+        printText(context, font, name, 5, 10)
+        printText(context, font, "Country: 🇺🇸 ", 5, 20)
+        printText(context, font, "Purpose: Scientific ", 5, 30)
         return canvas
     }, [name])
 
     const { viewport } = useThree()
-    const width = 250 / viewport.factor
+    const width = 125 / viewport.factor
     const height = 40 / viewport.factor
 
     return (
-        <mesh scale={scale}>
-            <sprite scale={[width, height, 1]} position={[0, 40 / viewport.factor, 0]}>
+        <mesh position={position}>
+            <sprite scale={[width, height, 1]}>
                 <spriteMaterial attach="material">
                     <canvasTexture attach="map" image={textCanvas} />
                 </spriteMaterial>

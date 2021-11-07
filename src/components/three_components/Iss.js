@@ -65,7 +65,7 @@ export default function ISS({ scale, tle, timeWindow, pathColor }) {
             <meshBasicMaterial attach="material" visible={false} />
           </mesh>
           {tag &&
-            <Text name="ISS" scale={[0.3, 0.3, 0.3]} />
+            <Text name="ISS" position={[0, -0.75, 0]} />
           }
         </group>
       </>

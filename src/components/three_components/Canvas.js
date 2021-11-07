@@ -4,7 +4,7 @@ import SkyBox from "./SkyBox";
 import Lights from "./Lights";
 import Camera from "./Camera";
 import Satellite from "./Satellite";
-import { Stats } from "@react-three/drei";
+import { Stats, OrbitControls } from "@react-three/drei";
 import { convertLongLatToXYZ } from "./Helpers";
 import React, { useEffect, useState, useRef } from "react";
 import { Canvas as Canv } from "@react-three/fiber";
@@ -106,6 +106,13 @@ const Canvas = ({ sat }) => {
       ) : (
         <></>
       )}
+
+      <OrbitControls
+        enableZoom={true}
+        enableRotate={true}
+        enablePan={true}
+        rotateSpeed={0.4}
+      />
 
       {/* {satData.map((sat, i) => (
         <Satellite
