@@ -10,7 +10,7 @@ function printText(context, font, name, x, y) {
     context.fillText(name, x, y)
 }
 
-export default function Text({ name, position }) {
+export default function Tag({ name, position }) {
     const textCanvas = React.useMemo(() => {
         const canvas = document.createElement('canvas')
         const context = canvas.getContext('2d')
@@ -27,7 +27,7 @@ export default function Text({ name, position }) {
         const fontSize = 10
         const font = ` ${fontSize}px Arial, sans-serif`
         printText(context, font, name, 5, 10)
-        printText(context, font, "Country: 🇺🇸 ", 5, 20)
+        printText(context, font, "Country: Multinational ", 5, 20)
         printText(context, font, "Purpose: Scientific ", 5, 30)
         return canvas
     }, [name])
@@ -37,9 +37,9 @@ export default function Text({ name, position }) {
     const height = 40 / viewport.factor
 
     return (
-        <mesh position={position}>
-            <sprite scale={[width, height, 1]}>
-                <spriteMaterial attach="material">
+        <mesh position={position} scale={[width, height, 1]} >
+            <sprite >
+                <spriteMaterial attach="material" >
                     <canvasTexture attach="map" image={textCanvas} />
                 </spriteMaterial>
             </sprite>

@@ -7,11 +7,10 @@ import { convertLongLatToXYZ } from "./Helpers";
 import { earthRadius } from "satellite.js/lib/constants";
 import OrbitPath from "./OrbitPath";
 import { getPoints } from "./Helpers";
-import Text from './Text'
+import Tag from './Tag'
 
 export default function ISS({ scale, tle, timeWindow, pathColor }) {
   const ISSref = useRef();
-  const tagRef = useRef();
   const data = useGLTF(iss);
   let { tle1, tle2 } = tle
 
@@ -34,12 +33,6 @@ export default function ISS({ scale, tle, timeWindow, pathColor }) {
       ISSref.current.position.y = pos[1];
       ISSref.current.position.z = pos[2];
 
-      tagRef.current.position.x = pos[0];
-      tagRef.current.position.y = pos[1];
-      tagRef.current.position.z = pos[2];
-
-
-
     }
   });
 
@@ -48,39 +41,32 @@ export default function ISS({ scale, tle, timeWindow, pathColor }) {
     setPoints(getPoints(timeWindow, tle))
   }, 30 * 1000);
 
-  function Tag() {
-    const [tag, setTag] = React.useState(false)
-    return (
-      <>
-        <group
-          ref={tagRef}
-          onPointerOver={() => {
-            setTag(true)
-          }}
-          onPointerLeave={() => {
-            setTag(false)
-          }}>
-          <mesh>
-            <sphereGeometry attach="geometry" args={[0.3, 32, 32]} />
-            <meshBasicMaterial attach="material" visible={false} />
-          </mesh>
-          {tag &&
-            <Text name="ISS" position={[0, -0.75, 0]} />
-          }
-        </group>
-      </>
-    );
-  }
+  const [tag, setTag] = React.useState(false)
+  console.log("rerender")
 
 
 
   return data ? (
     <>
-      <mesh ref={ISSref} scale={scale} >
-        <primitive object={data.scene} />
-      </mesh>
+      <group
+        ref={ISSref}
+        onPointerOver={() => {
+          setTag(true)
+        }}
+        onPointerLeave={() => {
+          setTag(false)
+        }}
+      >
+        <mesh scale={scale} >
+          <primitive object={data.scene} />
+        </mesh>
 
-      <Tag />
+        {tag &&
+          <Tag name="ISS" position={[0, -0.75, 0]} />
+        }
+
+      </group>
+
       <OrbitPath position={[0, 0, 0]} radius={0.01} points={points} color={pathColor} />
     </>
   ) : (
