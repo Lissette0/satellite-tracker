@@ -8,6 +8,7 @@ import { FaFilter } from "react-icons/fa";
 import { RiFilterOffFill } from "react-icons/ri";
 import { FiChevronDown } from "react-icons/fi";
 import { FaSatellite } from "react-icons/fa";
+import { HiFilter } from "react-icons/hi";
 
 const CloseNav = styled.div`
   background: #2f303a;
@@ -20,7 +21,6 @@ const CloseNav = styled.div`
 `;
 
 const NavIcon2 = styled(Link)`
-  margin-left: 15px;
   font-size: 2rem;
   position: relative;
   height: 100px;
@@ -32,7 +32,6 @@ const NavIcon2 = styled(Link)`
 `;
 
 const NavIcon = styled(Link)`
-  margin-left: 15px;
   position: relative;
   font-size: 2rem;
   height: 50px;
@@ -90,10 +89,10 @@ const Sidebar = ({ handleSatChange }) => {
       <div id="sidebar">
         <CloseNav>
           <NavIcon to="#">
-            <FaSatellite className="sidecloseIcon" onClick={showSidebar2} />
+            <FaSatellite className="sidecloseIcon hovericon" onClick={showSidebar2} />
           </NavIcon>
           <NavIcon2 to="#">
-            <FaFilter className="sidecloseIcon" onClick={showSidebar} />
+            <HiFilter className="sidecloseIcon hovericon" onClick={showSidebar} />
           </NavIcon2>
         </CloseNav>
 
