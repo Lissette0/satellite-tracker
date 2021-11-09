@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { Button } from './Button';
-import { Link } from 'react-router-dom';
-import './Navbar.css';
-import logo from './assets/logo.png'
+import React, { useState, useEffect } from "react";
+import { Button } from "./Button";
+import { Link } from "react-router-dom";
+import "./Navbar.css";
+import logo from "./assets/logo.png";
 
-function Navbar() {
+function Navbar({ locationHandler }) {
   const [click, setClick] = useState(false);
   const [button, setButton] = useState(true);
 
@@ -17,39 +17,52 @@ function Navbar() {
     } else {
       setButton(true);
     }
-  }; 
+  };
 
   useEffect(() => {
     showButton();
   }, []);
 
-  window.addEventListener('resize', showButton);
+  window.addEventListener("resize", showButton);
 
-    return (
-        <>
-            <nav className="navbar">
-                <div className="navbar-container">
-                    <Link to="/" className="navbar-logo" onClick={closeMobileMenu}>
-                        <img style={{width: "80px"}} src={logo} alt="LOGO"/>
-                    </Link>
-                    <div className='menu-icon' onClick ={handleClick}>
-                        <i className={click ? 'fas fa-times': 'fas fa-bars'}/>
-                    </div>
-                    <ul className={click ? 'nav-menu active' : 'nav-menu'}>
-                        <li className='nav-item'>
-                            <Link to='/' className='nav-links' onClick={closeMobileMenu}>home</Link>
-                        </li>
-                        <li className='nav-item'>
-                            <Link to='/sign-up' className='nav-links-mobile' onClick={closeMobileMenu}>Sign up</Link>
-                        </li>
-                    </ul>
-
-                    {button && <Button buttonStyle='btn--outline'>SIGN UP</Button>}
-
-                </div>
-            </nav>
-        </>
-    )
+  return (
+    <>
+      <nav className="navbar">
+        <div className="navbar-container">
+          <Link to="/" className="navbar-logo" onClick={closeMobileMenu}>
+            <img style={{ width: "80px" }} src={logo} alt="LOGO" />
+          </Link>
+          <div className="menu-icon" onClick={handleClick}>
+            <i className={click ? "fas fa-times" : "fas fa-bars"} />
+          </div>
+          <ul className={click ? "nav-menu active" : "nav-menu"}>
+            <li className="nav-item">
+              <Link to="/" className="nav-links" onClick={closeMobileMenu}>
+                home
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link
+                to="/sign-up"
+                className="nav-links-mobile"
+                onClick={closeMobileMenu}
+              >
+                Sign up
+              </Link>
+            </li>
+          </ul>
+          {button && (
+            <Button
+              onClick={() => locationHandler()}
+              buttonStyle="btn--outline"
+            >
+              Set Location
+            </Button>
+          )}
+        </div>
+      </nav>
+    </>
+  );
 }
 
-export default Navbar
+export default Navbar;
