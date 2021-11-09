@@ -7,6 +7,7 @@ import { convertLongLatToXYZ } from "./Helpers";
 import { earthRadius } from "satellite.js/lib/constants";
 import OrbitPath from "./OrbitPath";
 import { getPoints } from "./Helpers";
+import Tag from './Tag'
 
 export default function ISS({ scale, tle, timeWindow, pathColor }) {
   const ISSref = useRef();
@@ -31,6 +32,7 @@ export default function ISS({ scale, tle, timeWindow, pathColor }) {
       ISSref.current.position.x = pos[0];
       ISSref.current.position.y = pos[1];
       ISSref.current.position.z = pos[2];
+
     }
   });
 
@@ -39,13 +41,32 @@ export default function ISS({ scale, tle, timeWindow, pathColor }) {
     setPoints(getPoints(timeWindow, tle))
   }, 30 * 1000);
 
+  const [tag, setTag] = React.useState(false)
+  console.log("rerender")
+
 
 
   return data ? (
     <>
-      <mesh ref={ISSref} scale={scale} >
-        <primitive object={data.scene} />
-      </mesh>
+      <group
+        ref={ISSref}
+        onPointerOver={() => {
+          setTag(true)
+        }}
+        onPointerLeave={() => {
+          setTag(false)
+        }}
+      >
+        <mesh scale={scale} >
+          <primitive object={data.scene} />
+        </mesh>
+
+        {tag &&
+          <Tag name="ISS" position={[0, -0.75, 0]} />
+        }
+
+      </group>
+
       <OrbitPath position={[0, 0, 0]} radius={0.01} points={points} color={pathColor} />
     </>
   ) : (

@@ -4,7 +4,7 @@ import SkyBox from "./SkyBox";
 import Lights from "./Lights";
 import Camera from "./Camera";
 import Satellite from "./Satellite";
-import { Stats } from "@react-three/drei";
+import { Stats, OrbitControls } from "@react-three/drei";
 import { convertLongLatToXYZ } from "./Helpers";
 import React, { useEffect, useState, useRef } from "react";
 import { Canvas as Canv } from "@react-three/fiber";
@@ -71,8 +71,13 @@ const Canvas = ({ sat }) => {
   }
   colorsRef.current = colors;
 
+
+
+
+
   return (
     <Canv camera={{ position: [0, 0, 15] }}>
+
       {/* <gridHelper args={[50, 6, "skyblue", "white"]} />
       <Camera /> */}
       <SkyBox />
@@ -86,10 +91,10 @@ const Canvas = ({ sat }) => {
         pathColor={colorsRef.current[0]}
       />
       {sat &&
-      !(
-        Object.keys(sat).length === 0 &&
-        Object.getPrototypeOf(sat) === Object.prototype
-      ) ? (
+        !(
+          Object.keys(sat).length === 0 &&
+          Object.getPrototypeOf(sat) === Object.prototype
+        ) ? (
         <Satellite
           tle1={sat.tle_1}
           tle2={sat.tle_2}
@@ -101,6 +106,13 @@ const Canvas = ({ sat }) => {
       ) : (
         <></>
       )}
+
+      <OrbitControls
+        enableZoom={true}
+        enableRotate={true}
+        enablePan={true}
+        rotateSpeed={0.4}
+      />
 
       {/* {satData.map((sat, i) => (
         <Satellite

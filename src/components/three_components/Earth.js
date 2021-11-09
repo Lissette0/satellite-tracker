@@ -3,7 +3,6 @@ import React from "react";
 import * as THREE from "three";
 import { TextureLoader } from "three";
 import { useLoader } from "@react-three/fiber";
-import { OrbitControls } from "@react-three/drei";
 import { earthRadius } from "satellite.js/lib/constants";
 import CloudsTexture from "../assets/textures/earth/8k_clouds.jpg";
 import EarthTexture from "../assets/textures/earth/8k_earth_daymap.jpg";
@@ -54,12 +53,7 @@ export default function Earth({ scale }) {
         texture={EarthTexture}
         radius={(earthRadius) / scale}
       />
-      <OrbitControls
-        enableZoom={true}
-        enableRotate={true}
-        enablePan={true}
-        rotateSpeed={0.4}
-      />
+
       {/* <pointLight
         color="#ffffff"
         intensity={1}
