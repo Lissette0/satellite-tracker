@@ -7,6 +7,7 @@ import { earthRadius } from "satellite.js/lib/constants";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import OrbitPath from "./OrbitPath";
 import * as THREE from "three";
+import Tag from "./Tag"
 
 export default function Satellite({
   tle1,
@@ -15,6 +16,9 @@ export default function Satellite({
   rotation,
   timeWindow,
   pathColor,
+  name,
+  country,
+  status,
 }) {
   const satRef = useRef();
 
@@ -31,7 +35,7 @@ export default function Satellite({
   useFrame(({ clock }) => {
     if (firstRun) {
       if (satRef.current) {
-        console.log("rendering sat first render");
+        // console.log("rendering sat first render");
         let positionAndVelocity = satelliteFunction.propagate(
           satRecord,
           new Date()
@@ -53,7 +57,7 @@ export default function Satellite({
           );
           pos = pos.map((i) => i / 1000);
           //setPoints(points.concat(pos));
-          console.log(points);
+          // console.log(points);
           satRef.current.position.x = pos[0];
           satRef.current.position.y = pos[1];
           satRef.current.position.z = pos[2];
@@ -61,9 +65,9 @@ export default function Satellite({
         setFirstRun(false);
       }
     } else {
-      console.log(clock.elapsedTime % 3);
+      // console.log(clock.elapsedTime % 3);
       if (Math.ceil(clock.elapsedTime) % 3 === 0) {
-        console.log("five seconds");
+        // console.log("five seconds");
         if (satRef.current) {
           let positionAndVelocity = satelliteFunction.propagate(
             satRecord,
@@ -92,7 +96,7 @@ export default function Satellite({
               setPoints(
                 points.concat(new THREE.Vector3(pos[0], pos[1], pos[2]))
               );
-              console.log(points);
+              // console.log(points);
             }
           }
         }
@@ -105,15 +109,20 @@ export default function Satellite({
     setPoints(getPoints(timeWindow, { tle1, tle2 }));
   }, 30 * 1000);
  */
+  const [tag, setTag] = React.useState(false)
 
   return model ? (
-    <group>
+    <group
+      ref={satRef}
+      onClick={() => {
+        setTag(!tag)
+      }}
+    >
       <mesh
-        ref={satRef}
         scale={scale}
         rotation={rotation}
         onClick={(e) => setPoints([])}
-        onPointerOver={(e) => console.log("over")}
+      // onPointerOver={(e) => console.log("over")}
       >
         <primitive object={model.scene} />
       </mesh>
@@ -127,6 +136,11 @@ export default function Satellite({
       ) : (
         <></>
       )}
+
+      {tag &&
+        <Tag text={{ name, country, status }} position={[0, -0.75, 0]} />
+      }
+
     </group>
   ) : null;
 }

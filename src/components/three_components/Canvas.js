@@ -21,7 +21,6 @@ const Canvas = ({ sat }) => {
   }
 
   const [satData, setSatData] = useState([]);
-
   useEffect(() => {
     let url =
       "https://alanyu108-satellite-backend.herokuapp.com/api/satellites/page=1/";
@@ -74,7 +73,7 @@ const Canvas = ({ sat }) => {
 
 
 
-
+  console.log(sat)
   return (
     <Canv camera={{ position: [0, 0, 15] }}>
 
@@ -102,6 +101,9 @@ const Canvas = ({ sat }) => {
           rotation={[0, -Math.PI / 2, 0]}
           timeWindow={30}
           pathColor={colorsRef.current[0]}
+          name={sat.name}
+          country={sat.country}
+          status={sat.object_status}
         />
       ) : (
         <></>

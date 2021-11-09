@@ -50,19 +50,17 @@ export default function ISS({ scale, tle, timeWindow, pathColor }) {
     <>
       <group
         ref={ISSref}
-        onPointerOver={() => {
-          setTag(true)
+        onClick={() => {
+          setTag(!tag)
         }}
-        onPointerLeave={() => {
-          setTag(false)
-        }}
+
       >
         <mesh scale={scale} >
           <primitive object={data.scene} />
         </mesh>
 
         {tag &&
-          <Tag name="ISS" position={[0, -0.75, 0]} />
+          <Tag text={{ name: "ISS", country: "Multinational", status: "Operational" }} position={[0, -0.75, 0]} />
         }
 
       </group>
