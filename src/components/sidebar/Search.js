@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import "./Sidebar.css";
 import axios from "axios";
-import Data from "./Data";
+//import Data from "./Data";
 import { BsSearch } from "react-icons/bs";
+import Page from "./Page";
 import { FaSatellite } from "react-icons/fa";
 
 class Search extends Component {
@@ -156,7 +157,9 @@ class Search extends Component {
             <FaSatellite id="filterIcon" /> All Satellites
           </div>
           <hr />
-          <Data handleSatChange={this.props.handleSatChange} />
+          <Page />
+          {/* <Data handleSatChange={this.props.handleSatChange} /> */}
+          {}
         </div>
       </>
     );
