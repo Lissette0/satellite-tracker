@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import './Sidebar.css';
 import axios from 'axios';
-import Data from './Data';
+// import Data from './Data';
+import Page from './Page';
 import { BsSearch } from "react-icons/bs";
 import { FaSatellite } from "react-icons/fa";
 
@@ -88,10 +89,10 @@ class Search extends Component {
                             <>
                                 <div key={sat.name}>
                                     <div className="inner-content">
-                                        <p> <b className="name">{sat.name}</b> </p>
-                                        <p> Classification: {sat.classification}</p>
-                                        <p>International designation: {sat.international_designation} </p>
-                                        <p>Description: {sat.description} </p>
+                                        <p className= "sat-label"> <b className="name">{sat.name}</b> </p>
+                                        <p className= "sat-label"> Classification: {sat.classification}</p>
+                                        <p className= "sat-label">International designation: {sat.international_designation} </p>
+                                        <p className= "sat-label">Description: {sat.description} </p>
                                         <button
                                         onClick={() => this.props.handleSatChange(sat)}
                                         className="pl-2 pr-2 mr-2 border-2 border-white-600 "
@@ -107,6 +108,7 @@ class Search extends Component {
                             </>
                         ))}
                     </div>
+                    <div style={{height: "50px"}}></div>
                 </>
             )
 
@@ -146,7 +148,8 @@ class Search extends Component {
                     }
                     <div className="labels " id="all"> <FaSatellite id='filterIcon' /> All Satellites</div>
                     <hr />
-                    <Data handleSatChange={this.props.handleSatChange} />
+                    <Page style={{color: "white"}} />
+                    {/* <Data handleSatChange={this.props.handleSatChange} /> */}
 
                 </div>
 
