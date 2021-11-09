@@ -10,7 +10,7 @@ function printText(context, font, name, x, y) {
     context.fillText(name, x, y)
 }
 
-export default function Tag({ text: { name, country, status }, position, }) {
+export default function Tag({ text: { name, country, status }, position, visible }) {
     const textCanvas = React.useMemo(() => {
         const canvas = document.createElement('canvas')
         const context = canvas.getContext('2d')
@@ -39,7 +39,7 @@ export default function Tag({ text: { name, country, status }, position, }) {
     return (
         <mesh position={position} scale={[width, height, 1]} >
             <sprite >
-                <spriteMaterial attach="material" depthTest={false} >
+                <spriteMaterial attach="material" depthTest={false} visible={visible} >
                     <canvasTexture attach="map" image={textCanvas} />
                 </spriteMaterial>
             </sprite>

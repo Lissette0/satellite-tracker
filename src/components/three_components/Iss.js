@@ -2,14 +2,15 @@ import iss from "./iss.glb";
 import React, { useRef, useState } from "react";
 import * as satellite from "satellite.js";
 import { useGLTF } from "@react-three/drei";
-import { useFrame } from "@react-three/fiber";
+import { useFrame, useThree } from "@react-three/fiber";
 import { convertLongLatToXYZ } from "./Helpers";
 import { earthRadius } from "satellite.js/lib/constants";
 import OrbitPath from "./OrbitPath";
 import { getPoints } from "./Helpers";
 import Tag from './Tag'
 
-export default function ISS({ scale, tle, timeWindow, pathColor }) {
+
+export default function ISS({ scale, tle, timeWindow, pathColor, onHover }) {
   const ISSref = useRef();
   const data = useGLTF(iss);
   let { tle1, tle2 } = tle
@@ -42,28 +43,34 @@ export default function ISS({ scale, tle, timeWindow, pathColor }) {
   }, 30 * 1000);
 
   const [tag, setTag] = React.useState(false)
-  console.log("rerender")
 
 
-
+  const satRef = useRef()
   return data ? (
     <>
       <group
         ref={ISSref}
+
         onClick={() => {
           setTag(!tag)
         }}
-
       >
-        <mesh scale={scale} >
+
+        <mesh scale={scale} ref={satRef} onPointerOver={(e) => onHover(satRef)} onPointerOut={(e) => onHover(null)} >
           <primitive object={data.scene} />
         </mesh>
 
-        {tag &&
-          <Tag text={{ name: "ISS", country: "Multinational", status: "Operational" }} position={[0, -0.75, 0]} />
-        }
+
+        <Tag text={{ name: "ISS", country: "Multinational", status: "Operational" }} position={[0, -0.75, 0]} visible={tag} />
+        {/* <mesh>
+          <boxGeometry args={[0.5, 0.5, 0.5]} attach="geometry" />
+          <meshBasicMaterial color="rgba(96,55,240, 0.1)" attach="material" />
+
+        </mesh> */}
+
 
       </group>
+
 
       <OrbitPath position={[0, 0, 0]} radius={0.01} points={points} color={pathColor} />
     </>

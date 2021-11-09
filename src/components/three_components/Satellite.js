@@ -9,6 +9,7 @@ import OrbitPath from "./OrbitPath";
 import * as THREE from "three";
 import Tag from "./Tag"
 
+
 export default function Satellite({
   tle1,
   tle2,
@@ -137,9 +138,9 @@ export default function Satellite({
         <></>
       )}
 
-      {tag &&
-        <Tag text={{ name, country, status }} position={[0, -0.75, 0]} />
-      }
+
+      <Tag text={{ name, country, status }} position={[0, -0.5, 0]} visible={tag} />
+
 
     </group>
   ) : null;

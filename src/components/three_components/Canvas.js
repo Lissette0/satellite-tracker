@@ -71,9 +71,6 @@ const Canvas = ({ sat }) => {
   colorsRef.current = colors;
 
 
-
-
-  console.log(sat)
   return (
     <Canv camera={{ position: [0, 0, 15] }}>
 
