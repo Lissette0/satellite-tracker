@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./Sidebar.css"; 
+import "./Sidebar.css";
 import axios from "axios";
 //import Data from "./Data";
 import { BsSearch } from "react-icons/bs";
@@ -157,7 +157,7 @@ class Search extends Component {
             <FaSatellite id="filterIcon" /> All Satellites
           </div>
           <hr />
-          <Page />
+          <Page handleSatChange={this.props.handleSatChange} />
           {/* <Data handleSatChange={this.props.handleSatChange} /> */}
           {}
         </div>
