@@ -1,6 +1,7 @@
 import "./Sidebar.css";
 import ReactPaginate from "react-paginate";
 import { useEffect, useState } from "react";
+import SideBarButton from "./SideBarButton";
 
 function Page({ addSat }) {
   const [items, setItems] = useState([]);
@@ -97,14 +98,26 @@ function Page({ addSat }) {
                     onClick={() => addSat(item)}
                     className="pl-2 pr-2 mr-2 border-2 border-white-600 "
                   >
-                    Display Satellite
+                    (dont delete this for now)Display Satellite
                   </button>
-                  <button className="pl-2 pr-2 mr-2 border-2 border-white-600">
-                    Show Path
-                  </button>
-                  <button className="pl-2 pr-2 mr-2 border-2 border-white-600">
-                    Check Visibility
-                  </button>
+                  <SideBarButton
+                    label="Satellite"
+                    clickHandler={console.log}
+                    obj={item}
+                    dispStyle={"pl-2 pr-2 mr-2 border-2 border-white-600"}
+                  />
+                  <SideBarButton
+                    label="Path"
+                    clickHandler={console.log}
+                    obj={null}
+                    dispStyle={"pl-2 pr-2 mr-2 border-2 border-white-600"}
+                  />
+                  <SideBarButton
+                    label="Visibility"
+                    clickHandler={console.log}
+                    obj={null}
+                    dispStyle={"pl-2 pr-2 mr-2 border-2 border-white-600"}
+                  />
                 </div>
                 <hr />
               </div>
