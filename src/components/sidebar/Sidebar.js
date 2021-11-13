@@ -77,7 +77,7 @@ const SidebarNav2 = styled.nav`
   z-index: 10;
 `;
 
-const Sidebar = ({ handleSatChange }) => {
+const Sidebar = ({ addSat }) => {
   const [sidebar, setSidebar] = useState(false);
   const showSidebar = () => setSidebar(!sidebar);
 
@@ -89,23 +89,29 @@ const Sidebar = ({ handleSatChange }) => {
       <div id="sidebar">
         <CloseNav>
           <NavIcon to="#">
-            <FaSatellite className="sidecloseIcon hovericon" onClick={showSidebar2} />
+            <FaSatellite
+              className="sidecloseIcon hovericon"
+              onClick={showSidebar2}
+            />
           </NavIcon>
           <NavIcon2 to="#">
-            <HiFilter className="sidecloseIcon hovericon" onClick={showSidebar} />
+            <HiFilter
+              className="sidecloseIcon hovericon"
+              onClick={showSidebar}
+            />
           </NavIcon2>
         </CloseNav>
 
         <SidebarNav2 sidebar2={sidebar2}>
           <NavIcon1 to="#">
             <IoChevronBack
-              style ={{margin: "8px 8px 8px 8px"}}
+              style={{ margin: "8px 8px 8px 8px" }}
               onClick={showSidebar2}
               className="icon"
               id="back-icon"
             />
           </NavIcon1>
-          <Search handleSatChange={handleSatChange} />
+          <Search addSat={addSat} />
           {/* <div id = 'content'>
 
                     </div> */}
@@ -114,10 +120,11 @@ const Sidebar = ({ handleSatChange }) => {
         <SidebarNav sidebar={sidebar}>
           <NavIcon1 to="#">
             <IoChevronBack
-              style ={{margin: "8px 8px 0px 0px"}} 
-              onClick={showSidebar} 
+              style={{ margin: "8px 8px 0px 0px" }}
+              onClick={showSidebar}
               className="icon"
-              id="back-icon" />
+              id="back-icon"
+            />
           </NavIcon1>
           {/* <input id='input' type="text" name="name"  autoComplete="off" placeholder='Satellite Name' /> */}
           <div id="filter-content">
@@ -147,7 +154,7 @@ const Sidebar = ({ handleSatChange }) => {
         </SidebarNav>
       </div>
     </>
-  )
-}
+  );
+};
 
 export default Sidebar;

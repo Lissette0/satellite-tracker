@@ -98,7 +98,7 @@ class Search extends Component {
                     </p>
                     <p>Description: {sat.description} </p>
                     <button
-                      onClick={() => this.props.handleSatChange(sat)}
+                      onClick={() => this.props.addSat(sat)}
                       className="pl-2 pr-2 mr-2 border-2 border-white-600 "
                     >
                       Display Satellite
@@ -157,7 +157,7 @@ class Search extends Component {
             <FaSatellite id="filterIcon" /> All Satellites
           </div>
           <hr />
-          <Page handleSatChange={this.props.handleSatChange} />
+          <Page addSat={this.props.addSat} />
           {/* <Data handleSatChange={this.props.handleSatChange} /> */}
           {}
         </div>

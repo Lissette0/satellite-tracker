@@ -2,7 +2,7 @@ import "./Sidebar.css";
 import ReactPaginate from "react-paginate";
 import { useEffect, useState } from "react";
 
-function Page({ handleSatChange }) {
+function Page({ addSat }) {
   const [items, setItems] = useState([]);
 
   const [pageCount, setpageCount] = useState(0);
@@ -94,13 +94,16 @@ function Page({ handleSatChange }) {
                   {/*
                    */}
                   <button
-                    onClick={() => handleSatChange(item)}
+                    onClick={() => addSat(item)}
                     className="pl-2 pr-2 mr-2 border-2 border-white-600 "
                   >
                     Display Satellite
                   </button>
                   <button className="pl-2 pr-2 mr-2 border-2 border-white-600">
                     Show Path
+                  </button>
+                  <button className="pl-2 pr-2 mr-2 border-2 border-white-600">
+                    Check Visibility
                   </button>
                 </div>
                 <hr />
