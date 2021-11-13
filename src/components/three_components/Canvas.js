@@ -10,7 +10,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { Canvas as Canv } from "@react-three/fiber";
 import { earthRadius } from "satellite.js/lib/constants";
 
-const Canvas = ({ sat }) => {
+const Canvas = ({ currentSats }) => {
   function Point({ position }) {
     return (
       <mesh position={position}>
@@ -70,13 +70,9 @@ const Canvas = ({ sat }) => {
   }
   colorsRef.current = colors;
 
-
-
-
-  console.log(sat)
+  //console.log(sat);
   return (
     <Canv camera={{ position: [0, 0, 15] }}>
-
       {/* <gridHelper args={[50, 6, "skyblue", "white"]} />
       <Camera /> */}
       <SkyBox />
@@ -89,12 +85,9 @@ const Canvas = ({ sat }) => {
         timeWindow={30}
         pathColor={colorsRef.current[0]}
       />
-      {sat &&
-        !(
-          Object.keys(sat).length === 0 &&
-          Object.getPrototypeOf(sat) === Object.prototype
-        ) ? (
+      {currentSats.map((sat) => (
         <Satellite
+          key={sat.name}
           tle1={sat.tle_1}
           tle2={sat.tle_2}
           scale={[0.00025, 0.00025, 0.00025]}
@@ -105,10 +98,7 @@ const Canvas = ({ sat }) => {
           country={sat.country}
           status={sat.object_status}
         />
-      ) : (
-        <></>
-      )}
-
+      ))}
       <OrbitControls
         enableZoom={true}
         enableRotate={true}

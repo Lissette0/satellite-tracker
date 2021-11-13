@@ -7,24 +7,20 @@ import Loading from "../Loading";
 import "./Content.css";
 
 function Content() {
-  const [currentSat, setCurrentSat] = useState({});
+  const [currentSats, setCurrentSats] = useState([]);
 
-  const handleSatChange = (sat) => {
-    //console.log(sat);
-    setCurrentSat(sat);
+  const addSat = (sat) => {
+    console.log(currentSats);
+    return setCurrentSats([sat, ...currentSats]);
   };
 
   return (
     <>
       <div id="main">
-        <Sidebar
-          className="float"
-          id="sidebar"
-          handleSatChange={handleSatChange}
-        />
+        <Sidebar className="float" id="sidebar" addSat={addSat} />
         <div className="float" id="earth">
           <Suspense fallback={<Loading />}>
-            <Canvas sat={currentSat} />
+            <Canvas currentSats={currentSats} />
           </Suspense>
         </div>
       </div>
