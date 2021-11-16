@@ -11,7 +11,7 @@ const SideBarButton = ({ label, obj, clickHandler, dispStyle }) => {
         setActive(!active);
       }}
     >
-      {`${!active ? "show" : "hide"} ${label}`}
+      {`${!active ? "Show" : "Hide"} ${label}`}
     </button>
   );
 };
