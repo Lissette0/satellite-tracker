@@ -1,17 +1,17 @@
 import { Component, useState } from "react";
 
 const SideBarButton = ({ label, obj, clickHandler, dispStyle }) => {
-  const [active, setActive] = useState(false);
+  const [show, setShow] = useState(true);
 
   return (
     <button
       className={dispStyle}
       onClick={() => {
-        clickHandler(active, obj);
-        setActive(!active);
+        setShow(!show);
+        clickHandler({ sat: obj, show });
       }}
     >
-      {`${!active ? "Show" : "Hide"} ${label}`}
+      {`${show ? "Show" : "Hide"} ${label}`}
     </button>
   );
 };
