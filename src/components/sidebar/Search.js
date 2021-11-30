@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useEffect, useState } from "react";
 import "./Sidebar.css";
 import axios from "axios";
 //import Data from "./Data";
@@ -6,6 +6,9 @@ import { BsSearch } from "react-icons/bs";
 import Page from "./Page";
 import { FaSatellite } from "react-icons/fa";
 import SideBarButton from "./SideBarButton";
+import { MdDescription } from "react-icons/md";
+import { FiChevronDown } from "react-icons/fi";
+import { FiChevronUp } from "react-icons/fi";
 
 class Search extends Component {
   constructor(props) {
@@ -15,6 +18,7 @@ class Search extends Component {
       query: "",
       results: [],
       message: "",
+      open: true,
     };
 
     this.cancel = "";
@@ -74,12 +78,17 @@ class Search extends Component {
     }
   };
 
+
   renderSearchResults = () => {
+    //const { open } = this.state;
+
+    // const [show, setShow] = useState(true);
+
     const { results } = this.state;
     if (results.length !== 0 && Array.isArray(results)) {
       const test = (
         <>
-          <div className="labels " id="all">
+          <div className="labels2 " id="all">
             {" "}
             <BsSearch id="filterIcon" /> Search Result
           </div>
@@ -108,15 +117,35 @@ class Search extends Component {
                         <span class="text-gray-400">{sat.launch_site}</span>
                       </p>
                       <p class="text-gray-400 text-base"></p>
-                      <p
-                        class="text-gray-400 text-base"
-                        style={{ padding: "10px 0px 0px 0px" }}
-                      >
-                        {sat.description}
-                      </p>
+
+
+                      {/* drop down for description  */}
+
+                      
+                     <div>
+                      <div className="labels labels1" id="clear">
+                        <MdDescription id="clearIcon1" /> Description 
+                          <button style={{ float: "right" }} onClick={() => this.setState(prevState => ({open: !prevState.open}))}>
+                            < FiChevronDown style={{ display: this.state.open ? "block" : "none" }} id="dropIcon" />
+                            < FiChevronUp style={{ display: this.state.open ? "none" : "block" }} id="dropIcon" />
+                          </button>
+                      </div>
+                      
+
+                        <div style={{ display: this.state.open ? "none" : "block" }}>
+                          <p
+                            class="text-gray-400 text-base"
+                            style={{ padding: "10px 0px 0px 0px" }}
+                          >
+                            {sat.description}
+                          </p></div>
+                      </div>
+
+                    {/* end of drop down for description  */}
+
                     </div>
                     <div class="px-6 py-4">
-                      <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
+                      <span class="inline-block bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 sidebar-button">
                         <button
                           onClick={() => this.props.addSat(sat)}
                           className="pl-2 pr-2 mr-2 border-2 border-white-600 "
@@ -125,15 +154,16 @@ class Search extends Component {
                           Display Satellite
                         </button>
                       </span>
-                      <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
+                      <span class="inline-block bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 sidebar-button">
                         <SideBarButton
                           label="Satellite"
-                          clickHandler={console.log}
-                          obj={sat}
+
+                          clickHandler={this.props.addSat}
+                          obj={sat} 
                           dispStyle={"font-semibold"}
                         />
                       </span>
-                      <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
+                      <span class="inline-block bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 sidebar-button">
                         <SideBarButton
                           label="Path"
                           clickHandler={console.log}
@@ -141,7 +171,7 @@ class Search extends Component {
                           dispStyle={"font-semibold"}
                         />
                       </span>
-                      <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
+                      <span class="inline-block bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 sidebar-button">
                         <SideBarButton
                           label="Visibility"
                           clickHandler={console.log}
@@ -165,7 +195,7 @@ class Search extends Component {
     } else {
       return (
         <>
-          <div className="labels " id="all">
+          <div className="labels2 " id="all">
             {" "}
             <BsSearch id="filterIcon" /> Search Result
           </div>
@@ -177,6 +207,7 @@ class Search extends Component {
 
   render() {
     const { query } = this.state;
+    
     return (
       <>
         <label className="search-label" htmlFor="search-input">
@@ -194,7 +225,7 @@ class Search extends Component {
         {/* RESULTS */}
         <div id="content">
           {this.state.query.length === 0 ? null : this.renderSearchResults()}
-          <div className="labels " id="all">
+          <div className="labels2 " id="all">
             {" "}
             <FaSatellite id="filterIcon" /> All Satellites
           </div>

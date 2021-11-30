@@ -128,25 +128,25 @@ const Sidebar = ({ addSat }) => {
           </NavIcon1>
           {/* <input id='input' type="text" name="name"  autoComplete="off" placeholder='Satellite Name' /> */}
           <div id="filter-content">
-            <div className="labels">
+            <div className="labels2">
               {" "}
               <FaFilter id="filterIcon" /> Filter Collections
             </div>
             <hr></hr>
-            <div className="labels" id="clear">
+            <div className="labels2" id="clear">
               Categories <RiFilterOffFill id="clearIcon" />
               {/* <span class="tooltiptext">Clear Filter</span> */}
             </div>
             <hr></hr>
-            <div className="labels labels1" id="clear">
+            <div className="labels2 labels1" id="clear">
               Organizations <FiChevronDown id="dropIcon" />
             </div>
             <hr></hr>
-            <div className="labels labels1" id="clear">
+            <div className="labels2 labels1" id="clear">
               Features <FiChevronDown id="dropIcon" />
             </div>
             <hr></hr>
-            <div className="labels labels1" id="clear">
+            <div className="labels2 labels1" id="clear">
               Type <FiChevronDown id="dropIcon" />
             </div>
             <hr></hr>

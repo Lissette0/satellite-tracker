@@ -182,6 +182,13 @@
 
 }
 
+#clearIcon1{
+  margin-right: 10px;
+  float: left;
+  font-size:20px;
+
+}
+
 #hamIcon{
   margin-right: 10px;
   float: left;
@@ -205,17 +212,27 @@
 
 }
 
+.sidebar-button:hover{
+  box-shadow: rgba(255, 255, 255, 0.972) 0px 30px 60px -12px inset, rgba(255, 255, 255, 0.733) 0px 18px 36px -18px inset;}
+
 .labels{
+  background-color: #1B1B1B;
+  color:white;
+  font-size: 100%;
+  margin-top: 10px;
+  padding: 10px 10px 10px 0px;
+}
+
+.labels2{
   background-color: #1B1B1B;
   color:white;
   font-size: 100%;
   padding: 10px 10px 10px 10px;
 }
 
-
-.labels1:hover{
+/* .labels1:hover{
     background-color:	#404040;
- }
+ } */
 
 hr{
   border: 0; 
