@@ -87,71 +87,77 @@ class Search extends Component {
           <div id="search-result">
             {results.map((sat) => (
               <>
-
-                  <div class="flex justify-center items-center" >
-                    <div class="max-w-sm rounded overflow-hidden shadow-lg ">
-                        <div class="px-6 py-4 ">
-                        <div class="font-bold text-xl mb-2">{sat.name}</div>
-                        <p class="text-gray-300 text-base  mr-2">
-                            <b>Country :</b> <span class="text-gray-400">{sat.country}</span>
-                        </p>
-                        <p class="text-gray-300 text-base  mr-2">
-                        <b>Status :</b> <span class="text-gray-400">{sat.object_status}</span>
-                        </p>
-                        <p class="text-gray-300 text-base  mr-2">
-                        <b>Launch Date :</b> <span class="text-gray-400">{sat.launch_date}</span>
-                        </p>
-                        <p class="text-gray-300 text-base  mr-2">
-                        <b>Launch Site :</b>  <span class="text-gray-400">{sat.launch_site}</span>
-                        </p>
-                        <p class="text-gray-400 text-base"></p>
-                        <p class="text-gray-400 text-base" style={{padding: "10px 0px 0px 0px"}}>
-                            {sat.description}
-                        </p>
-                        </div>
-                        <div class="px-6 py-4">
-                        <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
-                        <button
-                                onClick={() => this.props.addSat(sat)}
-                                className="pl-2 pr-2 mr-2 border-2 border-white-600 "
-                                class="font-semibold"
-                            >
-                                Display Satellite
-                            </button>
-                        </span>
-                        <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">                 
-                            <SideBarButton
-                                            label="Satellite"
-                                            clickHandler={console.log}
-                                            obj={sat}
-                                            dispStyle={"font-semibold"}
-                                />
-                        </span>
-                        <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
-                            <SideBarButton
-                                label="Path"
-                                clickHandler={console.log}
-                                obj={null}
-                                dispStyle={"font-semibold"}
-                            />
-                        </span>
-                        <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
-                            <SideBarButton
-                                    label="Visibility"
-                                    clickHandler={console.log}
-                                    obj={null}
-                                    dispStyle={"font-semibold"}
-                            />
-                        </span>
-                        </div>
+                <div class="flex justify-center items-center">
+                  <div class="max-w-sm rounded overflow-hidden shadow-lg ">
+                    <div class="px-6 py-4 ">
+                      <div class="font-bold text-xl mb-2">{sat.name}</div>
+                      <p class="text-gray-300 text-base  mr-2">
+                        <b>Country :</b>{" "}
+                        <span class="text-gray-400">{sat.country}</span>
+                      </p>
+                      <p class="text-gray-300 text-base  mr-2">
+                        <b>Status :</b>{" "}
+                        <span class="text-gray-400">{sat.object_status}</span>
+                      </p>
+                      <p class="text-gray-300 text-base  mr-2">
+                        <b>Launch Date :</b>{" "}
+                        <span class="text-gray-400">{sat.launch_date}</span>
+                      </p>
+                      <p class="text-gray-300 text-base  mr-2">
+                        <b>Launch Site :</b>{" "}
+                        <span class="text-gray-400">{sat.launch_site}</span>
+                      </p>
+                      <p class="text-gray-400 text-base"></p>
+                      <p
+                        class="text-gray-400 text-base"
+                        style={{ padding: "10px 0px 0px 0px" }}
+                      >
+                        {sat.description}
+                      </p>
                     </div>
+                    <div class="px-6 py-4">
+                      <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
+                        <button
+                          onClick={() => this.props.addSat(sat)}
+                          className="pl-2 pr-2 mr-2 border-2 border-white-600 "
+                          class="font-semibold"
+                        >
+                          Display Satellite
+                        </button>
+                      </span>
+                      <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
+                        <SideBarButton
+                          label="Satellite"
+                          clickHandler={console.log}
+                          obj={sat}
+                          dispStyle={"font-semibold"}
+                        />
+                      </span>
+                      <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
+                        <SideBarButton
+                          label="Path"
+                          clickHandler={console.log}
+                          obj={null}
+                          dispStyle={"font-semibold"}
+                        />
+                      </span>
+                      <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
+                        <SideBarButton
+                          label="Visibility"
+                          clickHandler={console.log}
+                          obj={null}
+                          dispStyle={"font-semibold"}
+                        />
+                      </span>
+                    </div>
+                  </div>
                 </div>
 
                 <hr />
               </>
             ))}
           </div>
-          <div style={{margin: "0px 0px 30px 0px"}}></div>
+          <div style={{ margin: "0px 0px 30px 0px" }}></div>
         </>
       );
 

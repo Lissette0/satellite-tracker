@@ -16,7 +16,7 @@ export function getPoints(minutes, tle) {
   const { tle1, tle2 } = tle;
   const satRecord = satellite.twoline2satrec(tle1, tle2);
 
-  for (let i = 0; i < minutes; i++) {
+  for (let i = 0; i < minutes * 3; i++) {
     const date = new Date();
     date.setMinutes(date.getMinutes() - i);
     const positionAndVelocity = satellite.propagate(satRecord, date);
