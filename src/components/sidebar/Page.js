@@ -2,11 +2,16 @@ import "./Sidebar.css";
 import ReactPaginate from "react-paginate";
 import { useEffect, useState } from "react";
 import SideBarButton from "./SideBarButton";
+import { MdDescription } from "react-icons/md";
+import { FiChevronDown } from "react-icons/fi";
+import { FiChevronUp } from "react-icons/fi";
 
 function Page({ addSat }) {
   const [items, setItems] = useState([]);
 
   const [pageCount, setpageCount] = useState(0);
+
+  const [show, setShow] = useState(true);
 
   useEffect(() => {
     const getComments = async () => {
@@ -95,32 +100,52 @@ function Page({ addSat }) {
                         <span class="text-gray-400">{item.launch_site}</span>
                       </p>
                       <p class="text-gray-400 text-base"></p>
-                      <p
-                        class="text-gray-400 text-base"
-                        style={{ padding: "10px 0px 0px 0px" }}
-                      >
-                        {item.description}
-                      </p>
+
+                    {/* drop down for description  */}
+
+                     <div>
+                      <div className="labels labels1" id="clear">
+                        <MdDescription id="clearIcon1" /> Description 
+                          <button style={{ float: "right" }} onClick={() => setShow((s) => !s)}>
+                            < FiChevronDown style={{ display: show ? "block" : "none" }} id="dropIcon" />
+                            < FiChevronUp style={{ display: show ? "none" : "block" }} id="dropIcon" />
+                          </button>
+                      </div>
+                      
+
+                        <div style={{ display: show ? "none" : "block" }}>
+                          <p
+                            class="text-gray-400 text-base"
+                            style={{ padding: "10px 0px 0px 0px" }}
+                          >
+                            {item.description}
+                          </p></div>
+                      </div>
+
+                    {/* end of drop down for description  */}
+
                     </div>
                     <div class="px-6 py-4">
-                      <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
+                      <span class="inline-block bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 sidebar-button">
                         <button
                           onClick={() => addSat(item)}
+ 
                           className="pl-2 pr-2 mr-2 border-2 border-white-600 "
-                          class="font-semibold"
+                          class="font-semibold "
                         >
                           Display Satellite
                         </button>
                       </span>
-                      <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
+                      <span class="inline-block bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 sidebar-button">
                         <SideBarButton
                           label="Satellite"
+
                           clickHandler={addSat}
                           obj={item}
                           dispStyle={"font-semibold"}
                         />
                       </span>
-                      <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
+                      <span class="inline-block bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 sidebar-button">
                         <SideBarButton
                           label="Path"
                           clickHandler={console.log}
@@ -128,7 +153,7 @@ function Page({ addSat }) {
                           dispStyle={"font-semibold"}
                         />
                       </span>
-                      <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
+                      <span class="inline-block bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 sidebar-button">
                         <SideBarButton
                           label="Visibility"
                           clickHandler={console.log}
