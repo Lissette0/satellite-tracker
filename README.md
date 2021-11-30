@@ -2,6 +2,7 @@
 * [General info](#general-info)
 * [Technologies](#technologies)
 * [Setup](#setup)
+* [Hosted website](#hosted-website)
 
 ## General info
 This project is a web application that displays satelites around a 3D Earth model. Users are able to
@@ -23,6 +24,6 @@ $ npm install
 $ npm start
 ```
 
-## Hosted Website
+## Hosted website
 
 https://realtimesat.netlify.app/
