@@ -10,6 +10,7 @@ select a satellite to receive more information/details about it.
 
 ### Features ###
 * Caculated orbits for each satellite 
+
 Users can: 
 * Search for satellites by name 
 * View current position and path of a satellite
