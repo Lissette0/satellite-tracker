@@ -79,12 +79,12 @@ const Canvas = ({ currentSats }) => {
       <Lights />
       <Earth scale={scale} />
       <Point position={coords} />
-      <ISS
+      {/* <ISS
         scale={[0.005, 0.005, 0.005]}
         tle={iss_tle}
         timeWindow={30}
         pathColor={colorsRef.current[0]}
-      />
+      /> */}
       {currentSats.map((sat) => (
         <Satellite
           key={sat.name}
@@ -100,7 +100,7 @@ const Canvas = ({ currentSats }) => {
         />
       ))}
       <OrbitControls
-        enableZoom={true}
+        enableZoom={false}
         enableRotate={true}
         enablePan={true}
         rotateSpeed={0.4}
