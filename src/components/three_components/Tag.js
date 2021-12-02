@@ -10,8 +10,26 @@ function printText(context, font, name, x, y) {
     context.fillText(name, x, y)
 }
 
-export default function Tag({ text: { name, country, status }, position, }) {
+function satellite_status_emoji(status) {
+    switch (status) {
+        case "Operational":
+            return "🟢"
+        case "Partially Operational":
+            return "🟡"
+        default:
+            return "🔴"
+    }
+}
+
+function shortenText(text) {
+    if (text.length >= 15)
+        return text.substring(0, 12) + "..."
+    return text
+}
+
+export default function Tag({ text: { name, country, status }, position, tag_scale_factor }) {
     const textCanvas = React.useMemo(() => {
+
         const canvas = document.createElement('canvas')
         const context = canvas.getContext('2d')
         const width = 125 * 20
@@ -22,13 +40,13 @@ export default function Tag({ text: { name, country, status }, position, }) {
         context.scale(20, 20)
 
         context.fillStyle = "rgba(20, 20, 35, 0.75)"
-        context.fillRect(0, 0, width, height)
 
+        context.fillRect(0, 0, width, height)
         const fontSize = 10
-        const font = ` ${fontSize}px Arial, sans-serif`
-        printText(context, font, name, 5, 10)
-        printText(context, font, `Country: ${country}`, 5, 20)
-        printText(context, font, `Status: ${status}`, 5, 30)
+        const font = `bold ${fontSize}px Arial, sans-serif`
+        printText(context, font, `${shortenText(name)}  ${satellite_status_emoji(status)}`, 5, 10)
+        printText(context, `bold ${fontSize}px Arial, sans-serif`, `Country: ${shortenText(country)}`, 5, 22)
+
         return canvas
     }, [name, country, status])
 
@@ -36,10 +54,11 @@ export default function Tag({ text: { name, country, status }, position, }) {
     const width = 125 / viewport.factor
     const height = 40 / viewport.factor
 
+
     return (
-        <mesh position={position} scale={[width, height, 1]} >
-            <sprite >
-                <spriteMaterial attach="material" depthTest={false} >
+        <mesh position={position} scale={[width * tag_scale_factor, height * tag_scale_factor, 1]}>
+            <sprite>
+                <spriteMaterial attach="material" depthTest={false} sizeAttenuation={false} >
                     <canvasTexture attach="map" image={textCanvas} />
                 </spriteMaterial>
             </sprite>

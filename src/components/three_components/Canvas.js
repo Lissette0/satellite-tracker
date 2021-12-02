@@ -4,7 +4,7 @@ import SkyBox from "./SkyBox";
 import Lights from "./Lights";
 import Camera from "./Camera";
 import Satellite from "./Satellite";
-import { Stats, OrbitControls } from "@react-three/drei";
+import { Stats, OrbitControls, Stars } from "@react-three/drei";
 import { convertLongLatToXYZ } from "./Helpers";
 import React, { useEffect, useState, useRef } from "react";
 import { Canvas as Canv } from "@react-three/fiber";
@@ -75,16 +75,16 @@ const Canvas = ({ currentSats }) => {
     <Canv camera={{ position: [0, 0, 15] }}>
       {/* <gridHelper args={[50, 6, "skyblue", "white"]} />
       <Camera /> */}
-      <SkyBox />
+      {/* <SkyBox /> */}
       <Lights />
       <Earth scale={scale} />
       <Point position={coords} />
-      <ISS
+      {/* <ISS
         scale={[0.005, 0.005, 0.005]}
         tle={iss_tle}
         timeWindow={30}
         pathColor={colorsRef.current[0]}
-      />
+      /> */}
       {currentSats.map((sat) => (
         <Satellite
           key={sat.name}
@@ -100,10 +100,14 @@ const Canvas = ({ currentSats }) => {
         />
       ))}
       <OrbitControls
-        enableZoom={true}
+        enableZoom={false}
         enableRotate={true}
         enablePan={true}
         rotateSpeed={0.4}
+      />
+      <Stars
+        count={2000}
+        fade
       />
 
       {/* {satData.map((sat, i) => (

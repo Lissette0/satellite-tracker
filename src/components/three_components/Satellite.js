@@ -6,7 +6,6 @@ import { convertLongLatToXYZ } from "./Helpers";
 import { earthRadius } from "satellite.js/lib/constants";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import OrbitPath from "./OrbitPath";
-import * as THREE from "three";
 import Tag from "./Tag";
 import { useInterval, getPoints } from "./Helpers";
 
@@ -44,6 +43,7 @@ export default function Satellite({
       // Geodetic coords are accessed via `longitude`, `latitude`,
       let longitude = satellite.degreesLong(positionGd.longitude);
       let latitude = satellite.degreesLat(positionGd.latitude);
+
       pos = convertLongLatToXYZ(
         latitude,
         longitude,
@@ -65,28 +65,19 @@ export default function Satellite({
   useInterval(() => {
     setPoints(getPoints(timeWindow, { tle1, tle2 }));
   }, 30 * 1000);
-  const [tag, setTag] = React.useState(false);
+
 
   return model ? (
     <>
-      {" "}
-      <group
-        ref={satRef}
-        onClick={() => {
-          setTag(!tag);
-        }}
-      >
+      <group ref={satRef}>
         <mesh
           scale={scale}
           rotation={rotation}
-          onClick={() => setTag(!tag)}
-          // onPointerOver={(e) => console.log("over")}
         >
           <primitive object={model.scene} />
         </mesh>
-        {tag && (
-          <Tag text={{ name, country, status }} position={[0, -0.75, 0]} />
-        )}
+        <Tag text={{ name, country, status }} position={[0, -0.75, 0]} tag_scale_factor={0.075} />
+
       </group>
       <OrbitPath
         position={[0, 0, 0]}
