@@ -78,7 +78,6 @@ class Search extends Component {
     }
   };
 
-
   renderSearchResults = () => {
     //const { open } = this.state;
 
@@ -118,31 +117,49 @@ class Search extends Component {
                       </p>
                       <p class="text-gray-400 text-base"></p>
 
-
                       {/* drop down for description  */}
 
-                      
-                     <div>
-                      <div className="labels labels1" id="clear">
-                        <MdDescription id="clearIcon1" /> Description 
-                          <button style={{ float: "right" }} onClick={() => this.setState(prevState => ({open: !prevState.open}))}>
-                            < FiChevronDown style={{ display: this.state.open ? "block" : "none" }} id="dropIcon" />
-                            < FiChevronUp style={{ display: this.state.open ? "none" : "block" }} id="dropIcon" />
+                      <div>
+                        <div className="labels labels1" id="clear">
+                          <MdDescription id="clearIcon1" /> Description
+                          <button
+                            style={{ float: "right" }}
+                            onClick={() =>
+                              this.setState((prevState) => ({
+                                open: !prevState.open,
+                              }))
+                            }
+                          >
+                            <FiChevronDown
+                              style={{
+                                display: this.state.open ? "block" : "none",
+                              }}
+                              id="dropIcon"
+                            />
+                            <FiChevronUp
+                              style={{
+                                display: this.state.open ? "none" : "block",
+                              }}
+                              id="dropIcon"
+                            />
                           </button>
-                      </div>
-                      
+                        </div>
 
-                        <div style={{ display: this.state.open ? "none" : "block" }}>
+                        <div
+                          style={{
+                            display: this.state.open ? "none" : "block",
+                          }}
+                        >
                           <p
                             class="text-gray-400 text-base"
                             style={{ padding: "10px 0px 0px 0px" }}
                           >
                             {sat.description}
-                          </p></div>
+                          </p>
+                        </div>
                       </div>
 
-                    {/* end of drop down for description  */}
-
+                      {/* end of drop down for description  */}
                     </div>
                     <div class="px-6 py-4">
                       <span class="inline-block bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 sidebar-button">
@@ -157,9 +174,8 @@ class Search extends Component {
                       <span class="inline-block bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 sidebar-button">
                         <SideBarButton
                           label="Satellite"
-
                           clickHandler={this.props.addSat}
-                          obj={sat} 
+                          obj={sat}
                           dispStyle={"font-semibold"}
                         />
                       </span>
@@ -207,7 +223,7 @@ class Search extends Component {
 
   render() {
     const { query } = this.state;
-    
+
     return (
       <>
         <label className="search-label" htmlFor="search-input">
@@ -230,7 +246,10 @@ class Search extends Component {
             <FaSatellite id="filterIcon" /> All Satellites
           </div>
           <hr />
-          <Page addSat={this.props.addSat} />
+          <Page
+            addSat={this.props.addSat}
+            visibilityHandler={this.props.visibilityHandler}
+          />
           {/* <Data handleSatChange={this.props.handleSatChange} /> */}
           {}
         </div>

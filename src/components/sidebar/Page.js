@@ -6,7 +6,7 @@ import { MdDescription } from "react-icons/md";
 import { FiChevronDown } from "react-icons/fi";
 import { FiChevronUp } from "react-icons/fi";
 
-function Page({ addSat }) {
+function Page({ addSat, visibilityHandler }) {
   const [items, setItems] = useState([]);
 
   const [pageCount, setpageCount] = useState(0);
@@ -101,17 +101,25 @@ function Page({ addSat }) {
                       </p>
                       <p class="text-gray-400 text-base"></p>
 
-                    {/* drop down for description  */}
+                      {/* drop down for description  */}
 
-                     <div>
-                      <div className="labels labels1" id="clear">
-                        <MdDescription id="clearIcon1" /> Description 
-                          <button style={{ float: "right" }} onClick={() => setShow((s) => !s)}>
-                            < FiChevronDown style={{ display: show ? "block" : "none" }} id="dropIcon" />
-                            < FiChevronUp style={{ display: show ? "none" : "block" }} id="dropIcon" />
+                      <div>
+                        <div className="labels labels1" id="clear">
+                          <MdDescription id="clearIcon1" /> Description
+                          <button
+                            style={{ float: "right" }}
+                            onClick={() => setShow((s) => !s)}
+                          >
+                            <FiChevronDown
+                              style={{ display: show ? "block" : "none" }}
+                              id="dropIcon"
+                            />
+                            <FiChevronUp
+                              style={{ display: show ? "none" : "block" }}
+                              id="dropIcon"
+                            />
                           </button>
-                      </div>
-                      
+                        </div>
 
                         <div style={{ display: show ? "none" : "block" }}>
                           <p
@@ -119,27 +127,16 @@ function Page({ addSat }) {
                             style={{ padding: "10px 0px 0px 0px" }}
                           >
                             {item.description}
-                          </p></div>
+                          </p>
+                        </div>
                       </div>
 
-                    {/* end of drop down for description  */}
-
+                      {/* end of drop down for description  */}
                     </div>
                     <div class="px-6 py-4">
                       <span class="inline-block bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 sidebar-button">
-                        <button
-                          onClick={() => addSat(item)}
- 
-                          className="pl-2 pr-2 mr-2 border-2 border-white-600 "
-                          class="font-semibold "
-                        >
-                          Display Satellite
-                        </button>
-                      </span>
-                      <span class="inline-block bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 sidebar-button">
                         <SideBarButton
                           label="Satellite"
-
                           clickHandler={addSat}
                           obj={item}
                           dispStyle={"font-semibold"}
@@ -154,12 +151,12 @@ function Page({ addSat }) {
                         />
                       </span>
                       <span class="inline-block bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 sidebar-button">
-                        <SideBarButton
-                          label="Visibility"
-                          clickHandler={console.log}
-                          obj={null}
-                          dispStyle={"font-semibold"}
-                        />
+                        <button
+                          className="font-semibold"
+                          onClick={() => visibilityHandler(item)}
+                        >
+                          Show Visibility
+                        </button>
                       </span>
                     </div>
                   </div>

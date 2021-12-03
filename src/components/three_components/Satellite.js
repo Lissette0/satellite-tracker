@@ -7,7 +7,7 @@ import { earthRadius } from "satellite.js/lib/constants";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import OrbitPath from "./OrbitPath";
 import Tag from "./Tag";
-import { useInterval, getPoints } from "./Helpers";
+import { useInterval, getPoints, getRandomColor } from "./Helpers";
 
 export default function Satellite({
   tle1,
@@ -57,8 +57,8 @@ export default function Satellite({
       satRef.current.position.z = pos[2];
     }
   });
-
-  let [points, setPoints] = useState(getPoints(timeWindow, { tle1, tle2 }));
+  const [points, setPoints] = useState(getPoints(timeWindow, { tle1, tle2 }));
+  const [color, setColor] = useState(getRandomColor());
   setInterval(() => {
     setPoints(getPoints(timeWindow, { tle1, tle2 }));
   }, 30 * 1000);
@@ -66,22 +66,21 @@ export default function Satellite({
     setPoints(getPoints(timeWindow, { tle1, tle2 }));
   }, 30 * 1000);
 
-
   return model ? (
     <>
       <group ref={satRef}>
-        <mesh
-          scale={scale}
-          rotation={rotation}
-        >
+        <mesh scale={scale} rotation={rotation}>
           <primitive object={model.scene} />
         </mesh>
-        <Tag text={{ name, country, status }} position={[0, -0.75, 0]} tag_scale_factor={0.075} />
-
+        <Tag
+          text={{ name, country, status }}
+          position={[0, -0.75, 0]}
+          tag_scale_factor={0.075}
+        />
       </group>
       <OrbitPath
         position={[0, 0, 0]}
-        color={pathColor}
+        color={color}
         points={points}
         scale={scale}
       />

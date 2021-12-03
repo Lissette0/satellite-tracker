@@ -4,7 +4,7 @@ import * as THREE from "three";
 import { Line } from "three";
 import { useUpdate } from "react-three-fiber";
 
-function OrbitPath({ position, color = "#f3f3f3", points, scale = 1 }) {
+function OrbitPath({ position, color, points, scale = 1 }) {
   const ref = useRef();
   useLayoutEffect(() => {
     ref.current.geometry.setFromPoints(points);
