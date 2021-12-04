@@ -80,7 +80,7 @@ function Page({ addSat, visibilityHandler }) {
             return (
               <div key={item.name}>
                 <div class="flex justify-center items-center">
-                  <div class="max-w-sm rounded overflow-hidden shadow-lg ">
+                  <div class=" rounded overflow-hidden shadow-lg ">
                     <div class="px-6 py-4 ">
                       <div class="font-bold text-xl mb-2">{item.name}</div>
                       <p class="text-gray-300 text-base  mr-2">

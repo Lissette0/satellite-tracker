@@ -27,6 +27,7 @@
   .btn--medium {
     padding: 8px 20px;
     font-size: 18px;
+    width: 170px;
   }
   
   .btn--large {
