@@ -96,7 +96,7 @@ class Search extends Component {
             {results.map((sat) => (
               <>
                 <div class="flex justify-center items-center">
-                  <div class="max-w-sm rounded overflow-hidden shadow-lg ">
+                  <div class="rounded overflow-hidden shadow-lg ">
                     <div class="px-6 py-4 ">
                       <div class="font-bold text-xl mb-2">{sat.name}</div>
                       <p class="text-gray-300 text-base  mr-2">
@@ -163,15 +163,6 @@ class Search extends Component {
                     </div>
                     <div class="px-6 py-4">
                       <span class="inline-block bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 sidebar-button">
-                        <button
-                          onClick={() => this.props.addSat(sat)}
-                          className="pl-2 pr-2 mr-2 border-2 border-white-600 "
-                          class="font-semibold"
-                        >
-                          Display Satellite
-                        </button>
-                      </span>
-                      <span class="inline-block bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 sidebar-button">
                         <SideBarButton
                           label="Satellite"
                           clickHandler={this.props.addSat}
@@ -188,12 +179,13 @@ class Search extends Component {
                         />
                       </span>
                       <span class="inline-block bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 sidebar-button">
-                        <SideBarButton
-                          label="Visibility"
-                          clickHandler={console.log}
-                          obj={null}
-                          dispStyle={"font-semibold"}
-                        />
+                        <button
+                          className="font-semibold"
+                          onClick={() => this.props.visibilityHandler(sat)}
+                          //onClick={() => visibilityHandler(sat)}
+                        >
+                          Show Visibility
+                        </button>
                       </span>
                     </div>
                   </div>
