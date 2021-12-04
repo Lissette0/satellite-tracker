@@ -74,7 +74,7 @@ export default function Satellite({
         </mesh>
         <Tag
           text={{ name, country, status }}
-          position={[0, -0.75, 0]}
+          position={[0, -0.5, 0]}
           tag_scale_factor={0.075}
         />
       </group>

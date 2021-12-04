@@ -20,47 +20,17 @@ export default function Earth({ scale }) {
       [texture, EarthNormalTexture, EarthSpecularTexture, CloudsTexture]
     );
 
-    const vertexShader = `
-      varying vec2 vertexUV;
-      void main() 
-      {
-        vertexUV = uv;
-        gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-      }
-    `;
-
-    const fragmentShader = `
-      uniform sampler2D globe;
-      varying vec2 vertexUV;
-
-      void main() 
-      {
-        gl_FragColor = vec4(texture2D(globe, vertexUV).xyz, 1.0);
-      }
-    `;
-
-
     return (
       <>
         {/* Earth texture */}
         <mesh position={position}  >
           <sphereGeometry attach="geometry" args={[radius, 32, 32]} />
-          <shaderMaterial
-            attach="material"
-            vertexShader={vertexShader}
-            fragmentShader={fragmentShader}
-            uniforms={{
-              globe: {
-                value: Earth
-              },
-            }}
-          />
-          {/* <meshPhongMaterial
+          <meshPhongMaterial
             map={Earth}
             normalMap={NormalEarth}
             specularMap={SpecularEarth}
             attach="material"
-          /> */}
+          />
         </mesh>
 
         {/* Clouds texture */}

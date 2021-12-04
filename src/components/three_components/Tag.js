@@ -3,11 +3,12 @@ import { useThree } from "@react-three/fiber"
 
 //https://codesandbox.io/s/react-three-fiber-hud-water-fxaa-forked-4bjrc?file=/src/index.js
 
-function printText(context, font, name, x, y) {
+// prints the font onto the canvas given the font , text and position on the canvas
+function printText(context, font, text, x, y) {
     context.font = font
     context.fillStyle = 'white'
     context.textBaseline = 'middle'
-    context.fillText(name, x, y)
+    context.fillText(text, x, y)
 }
 
 function satellite_status_emoji(status) {
@@ -45,7 +46,7 @@ export default function Tag({ text: { name, country, status }, position, tag_sca
         const fontSize = 10
         const font = `bold ${fontSize}px Arial, sans-serif`
         printText(context, font, `${shortenText(name)}  ${satellite_status_emoji(status)}`, 5, 10)
-        printText(context, `bold ${fontSize}px Arial, sans-serif`, `Country: ${shortenText(country)}`, 5, 22)
+        printText(context, `${fontSize}px Arial, sans-serif`, `Country: ${shortenText(country)}`, 5, 22)
 
         return canvas
     }, [name, country, status])
