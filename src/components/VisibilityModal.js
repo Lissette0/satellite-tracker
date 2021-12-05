@@ -6,7 +6,9 @@ const VisibilityModal = ({ showHandler, sat }) => {
   const [location, setLocation] = useState({});
   const [elevation, setElevation] = useState({});
 
-  const baseUrlAlt = "https://api.opentopodata.org/v1/eudem25m?locations=";
+  const baseUrlAlt = " https://api.open-elevation.com/api/v1/lookup?locations=";
+  const baseUrlAlanApi =
+    "https://alanyu108-satellite-backend.herokuapp.com/api/satellite-visible/";
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
       (pos) =>
@@ -15,10 +17,18 @@ const VisibilityModal = ({ showHandler, sat }) => {
     );
     axios
       .get(`${baseUrlAlt}${location.lat},${location.long}`)
-      .then((res) => console.log(res));
-  }, [location.lat, location.long]);
-  console.log(location);
-  console.log(elevation);
+      .then((res) => setElevation({ elevation: res.data.results[0].elevation }))
+      .then((data) => console.log(data));
+
+    axios
+      .post(baseUrlAlanApi, {
+        name: sat.name,
+        longitude: location.long,
+        latitude: location.lat,
+        altitude: elevation.elevation,
+      })
+      .then((res) => setVisibility(res.data));
+  }, [location.lat, location.long, sat.name, elevation.elevation]);
   return (
     <div
       className="min-w-screen h-screen animated fadeIn faster  fixed  left-0 top-0 flex justify-center items-center inset-0 z-50 outline-none focus:outline-none bg-no-repeat bg-center bg-cover"
@@ -32,7 +42,12 @@ const VisibilityModal = ({ showHandler, sat }) => {
               {sat.name} Visibility Information
             </h2>
             <p className="text-sm text-gray-500 px-8">
-              visibile on someday and time
+              {!visibility.visible &&
+                `${sat.name} is not currently visible at your location`}
+              {visibility.visible &&
+                `${sat.name} is currently visible at your location for ${
+                  visibility.duration / 60
+                } minutes \n The best viewing time is past midnight`}
             </p>
           </div>
           <div className="p-3  mt-2 text-center space-x-4 md:block">
