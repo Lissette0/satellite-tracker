@@ -9,7 +9,7 @@ import VisibilityModal from "../VisibilityModal";
 
 function Content() {
   const [currentSats, setCurrentSats] = useState([]);
-  const [show, setShow] = useState(true);
+  const [show, setShow] = useState(false);
 
   const [currItem, setCurrItem] = useState({});
 
