@@ -9,6 +9,8 @@ import { FiChevronUp } from "react-icons/fi";
 function Page({ addSat, visibilityHandler }) {
   const [items, setItems] = useState([]);
 
+  const[isLoading, setIsLoading] = useState(true);
+
   const [pageCount, setpageCount] = useState(0);
 
   const [show, setShow] = useState(true);
@@ -20,6 +22,8 @@ function Page({ addSat, visibilityHandler }) {
       );
       const data = await res.json();
       setItems(data);
+      setIsLoading(false);
+
 
       const res1 = await fetch(
         `https://alanyu108-satellite-backend.herokuapp.com/api/satellites/`
@@ -79,6 +83,7 @@ function Page({ addSat, visibilityHandler }) {
           {items.map((item) => {
             return (
               <div key={item.name}>
+                {isLoading  && <p style={{ color: 'white', margin: "20px"}}>LOADING...</p>}
                 <div class="flex justify-center items-center">
                   <div class=" rounded overflow-hidden shadow-lg ">
                     <div class="px-6 py-4 ">
@@ -161,12 +166,12 @@ function Page({ addSat, visibilityHandler }) {
                     </div>
                   </div>
                 </div>
-
                 <hr />
               </div>
             );
           })}
         </div>
+        {/* <p style={{ color: 'white', margin: "20px"}}>LOADING...</p> */}
       </div>
     </>
   );
