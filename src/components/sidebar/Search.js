@@ -207,7 +207,7 @@ class Search extends Component {
             {" "}
             <BsSearch id="filterIcon" /> Search Result
           </div>
-          <p className="inner-content"> Not Found </p>
+          <p style={{ color: 'white', margin: "20px"}}> Not Found </p>
         </>
       );
     }
