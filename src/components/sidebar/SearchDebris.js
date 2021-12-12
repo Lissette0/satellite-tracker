@@ -81,7 +81,7 @@ class SearchDebris extends Component {
     //const { open } = this.state;
 
     // const [show, setShow] = useState(true);
-    
+
     const { results } = this.state;
     if (results.length !== 0 && Array.isArray(results)) {
       const test = (
@@ -236,7 +236,7 @@ class SearchDebris extends Component {
           {this.state.query.length === 0 ? null : this.renderSearchResults()}
           <div className="labels2 " id="all">
             {" "}
-            <FaSatellite id="filterIcon" /> All Space Debris
+            <FaSatellite id="filterIcon" /> Space Debris
           </div>
           <hr />
           <PageDebris
