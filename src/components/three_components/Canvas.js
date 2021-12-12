@@ -9,6 +9,7 @@ import { convertLongLatToXYZ } from "./Helpers";
 import React, { useEffect, useState, useRef } from "react";
 import { Canvas as Canv } from "@react-three/fiber";
 import { earthRadius } from "satellite.js/lib/constants";
+import Debris from "./Debris";
 
 const Canvas = ({ currentSats }) => {
   function Point({ position }) {
@@ -109,6 +110,7 @@ const Canvas = ({ currentSats }) => {
         count={2000}
         fade
       />
+      <Debris />
 
       {/* {satData.map((sat, i) => (
         <Satellite
