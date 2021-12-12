@@ -8,7 +8,7 @@ const VisibilityModal = ({ showHandler, sat }) => {
 
   const baseUrlAlt = " https://api.open-elevation.com/api/v1/lookup?locations=";
   const baseUrlAlanApi =
-    "https://alanyu108-satellite-backend.herokuapp.com/api/satellite-visible/";
+    "https://alanyu108-satellite-backend.herokuapp.com/api/satellite/visible/";
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
       (pos) =>
@@ -45,8 +45,7 @@ const VisibilityModal = ({ showHandler, sat }) => {
               {!visibility.visible &&
                 `${sat.name} is not currently visible at your location`}
               {visibility.visible &&
-                `${sat.name} is currently visible at your location for ${
-                  visibility.duration / 60
+                `${sat.name} is currently visible at your location for ${visibility.duration / 60
                 } minutes \n The best viewing time is past midnight`}
             </p>
           </div>

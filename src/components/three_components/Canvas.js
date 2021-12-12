@@ -23,7 +23,7 @@ const Canvas = ({ currentSats }) => {
   const [satData, setSatData] = useState([]);
   useEffect(() => {
     let url =
-      "https://alanyu108-satellite-backend.herokuapp.com/api/satellites/page=1/";
+      "https://alanyu108-satellite-backend.herokuapp.com/api/satellite/page=1/";
     fetch(url)
       .then((res) => {
         if (res.status === 200) return res.json();

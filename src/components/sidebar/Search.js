@@ -25,7 +25,7 @@ class Search extends Component {
   }
 
   fetchSearchResults = (query) => {
-    const searchUrl = `https://alanyu108-satellite-backend.herokuapp.com/api/satellites/search/`;
+    const searchUrl = `https://alanyu108-satellite-backend.herokuapp.com/api/satellite/search/`;
     // const searchUrl = `http://127.0.0.1:8000/api/satellites/search/`
 
     if (this.cancel) {
@@ -182,7 +182,7 @@ class Search extends Component {
                         <button
                           className="font-semibold"
                           onClick={() => this.props.visibilityHandler(sat)}
-                          //onClick={() => visibilityHandler(sat)}
+                        //onClick={() => visibilityHandler(sat)}
                         >
                           Show Visibility
                         </button>
@@ -207,7 +207,7 @@ class Search extends Component {
             {" "}
             <BsSearch id="filterIcon" /> Search Result
           </div>
-          <p style={{ color: 'white', margin: "20px"}}> Not Found </p>
+          <p style={{ color: 'white', margin: "20px" }}> Not Found </p>
         </>
       );
     }
@@ -243,7 +243,7 @@ class Search extends Component {
             visibilityHandler={this.props.visibilityHandler}
           />
           {/* <Data handleSatChange={this.props.handleSatChange} /> */}
-          {}
+          { }
         </div>
       </>
     );
