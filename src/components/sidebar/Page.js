@@ -9,7 +9,7 @@ import { FiChevronUp } from "react-icons/fi";
 function Page({ addSat, visibilityHandler }) {
   const [items, setItems] = useState([]);
 
-  const[isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   const [pageCount, setpageCount] = useState(0);
 
@@ -18,7 +18,7 @@ function Page({ addSat, visibilityHandler }) {
   useEffect(() => {
     const getComments = async () => {
       const res = await fetch(
-        `https://alanyu108-satellite-backend.herokuapp.com/api/satellites/page=1/`
+        `https://alanyu108-satellite-backend.herokuapp.com/api/satellite/page=1/`
       );
       const data = await res.json();
       setItems(data);
@@ -26,7 +26,7 @@ function Page({ addSat, visibilityHandler }) {
 
 
       const res1 = await fetch(
-        `https://alanyu108-satellite-backend.herokuapp.com/api/satellites/`
+        `https://alanyu108-satellite-backend.herokuapp.com/api/satellite/all/`
       );
       const data1 = await res1.json();
       const total = data1.length;
@@ -40,7 +40,7 @@ function Page({ addSat, visibilityHandler }) {
 
   const fetchComments = async (currentPage) => {
     const res = await fetch(
-      `https://alanyu108-satellite-backend.herokuapp.com/api/satellites/page=${currentPage}/`
+      `https://alanyu108-satellite-backend.herokuapp.com/api/satellite/page=${currentPage}/`
     );
     const data = await res.json();
     return data;
@@ -83,7 +83,7 @@ function Page({ addSat, visibilityHandler }) {
           {items.map((item) => {
             return (
               <div key={item.name}>
-                {isLoading  && <p style={{ color: 'white', margin: "20px"}}>LOADING...</p>}
+                {isLoading && <p style={{ color: 'white', margin: "20px" }}>LOADING...</p>}
                 <div class="flex justify-center items-center">
                   <div class=" rounded overflow-hidden shadow-lg ">
                     <div class="px-6 py-4 ">
