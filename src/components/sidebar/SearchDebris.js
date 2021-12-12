@@ -1,15 +1,15 @@
 import React, { Component, useEffect, useState } from "react";
 import "./Sidebar.css";
 import axios from "axios";
+import PageDebris from "./PageDebris";
 import { BsSearch } from "react-icons/bs";
-import Page from "./Page";
 import { FaSatellite } from "react-icons/fa";
-import SideBarButton from "./SideBarButton";
-import { MdDescription } from "react-icons/md";
-import { FiChevronDown } from "react-icons/fi";
-import { FiChevronUp } from "react-icons/fi";
+// import SideBarButton from "./SideBarButton";
+// import { MdDescription } from "react-icons/md";
+// import { FiChevronDown } from "react-icons/fi";
+// import { FiChevronUp } from "react-icons/fi";
 
-class Search extends Component {
+class SearchDebris extends Component {
   constructor(props) {
     super(props);
 
@@ -24,7 +24,7 @@ class Search extends Component {
   }
 
   fetchSearchResults = (query) => {
-    const searchUrl = `https://alanyu108-satellite-backend.herokuapp.com/api/satellite/search/`;
+    const searchUrl = `https://alanyu108-satellite-backend.herokuapp.com/api/debris/search/`;
     // const searchUrl = `http://127.0.0.1:8000/api/satellites/search/`
 
     if (this.cancel) {
@@ -81,44 +81,48 @@ class Search extends Component {
     //const { open } = this.state;
 
     // const [show, setShow] = useState(true);
-
+    
     const { results } = this.state;
     if (results.length !== 0 && Array.isArray(results)) {
       const test = (
         <>
           <div className="labels2 " id="all">
             {" "}
-            <BsSearch id="filterIcon" /> Satellite Search Result
+            <BsSearch id="filterIcon" /> Space Debris Search Result
           </div>
           <hr />
           <div id="search-result">
             {results.map((sat) => (
               <>
-                <div class="flex justify-center items-center">
+                <div class="justify-center items-center">
                   <div class="rounded overflow-hidden shadow-lg ">
                     <div class="px-6 py-4 ">
                       <div class="font-bold text-xl mb-2">{sat.name}</div>
+
                       <p class="text-gray-300 text-base  mr-2">
-                        <b>Country :</b>{" "}
-                        <span class="text-gray-400">{sat.country}</span>
+                        <b>Inclination:</b>{" "}
+                        <span class="text-gray-400">{sat.inclination}</span>
                       </p>
+
                       <p class="text-gray-300 text-base  mr-2">
-                        <b>Status :</b>{" "}
-                        <span class="text-gray-400">{sat.object_status}</span>
+                        <b>Raan:</b>{" "}
+                        <span class="text-gray-400">{sat.raan}</span>
                       </p>
+
                       <p class="text-gray-300 text-base  mr-2">
-                        <b>Launch Date :</b>{" "}
-                        <span class="text-gray-400">{sat.launch_date}</span>
+                        <b>Eccentricity:</b>{" "}
+                        <span class="text-gray-400">{sat.eccentricity}</span>
                       </p>
-                      <p class="text-gray-300 text-base  mr-2">
+
+                      {/* <p class="text-gray-300 text-base  mr-2">
                         <b>Launch Site :</b>{" "}
                         <span class="text-gray-400">{sat.launch_site}</span>
                       </p>
-                      <p class="text-gray-400 text-base"></p>
+                      <p class="text-gray-400 text-base"></p> */}
 
                       {/* drop down for description  */}
 
-                      <div>
+                      {/* <div>
                         <div className="labels labels1" id="clear">
                           <MdDescription id="clearIcon1" /> Description
                           <button
@@ -156,12 +160,12 @@ class Search extends Component {
                             {sat.description}
                           </p>
                         </div>
-                      </div>
+                      </div> */}
 
                       {/* end of drop down for description  */}
                     </div>
                     <div class="px-6 py-4">
-                      <span class="inline-block bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 sidebar-button">
+                      {/* <span class="inline-block bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 sidebar-button">
                         <SideBarButton
                           label="Satellite"
                           clickHandler={this.props.addSat}
@@ -176,16 +180,14 @@ class Search extends Component {
                           obj={null}
                           dispStyle={"font-semibold"}
                         />
-                      </span>
+                      </span> */}
                       <span class="inline-block bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 sidebar-button">
                         <button
                           className="font-semibold"
-                          onClick={() => this.props.visibilityHandler(sat)}
-                        //onClick={() => visibilityHandler(sat)}
                         >
-                          Show Visibility
+                          Show Debris
                         </button>
-                      </span>
+                      </span> 
                     </div>
                   </div>
                 </div>
@@ -204,7 +206,7 @@ class Search extends Component {
         <>
           <div className="labels2 " id="all">
             {" "}
-            <BsSearch id="filterIcon" /> Satellite Search Result
+            <BsSearch id="filterIcon" /> Search Result
           </div>
           <p style={{ color: 'white', margin: "20px" }}> Not Found </p>
         </>
@@ -234,12 +236,12 @@ class Search extends Component {
           {this.state.query.length === 0 ? null : this.renderSearchResults()}
           <div className="labels2 " id="all">
             {" "}
-            <FaSatellite id="filterIcon" /> All Satellites
+            <FaSatellite id="filterIcon" /> All Space Debris
           </div>
           <hr />
-          <Page
-            addSat={this.props.addSat}
-            visibilityHandler={this.props.visibilityHandler}
+          <PageDebris
+            // addSat={this.props.addSat}
+            // visibilityHandler={this.props.visibilityHandler}
           />
           {/* <Data handleSatChange={this.props.handleSatChange} /> */}
           { }
@@ -249,4 +251,4 @@ class Search extends Component {
   }
 }
 
-export default Search;
+export default SearchDebris;

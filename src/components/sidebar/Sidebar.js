@@ -4,11 +4,12 @@ import "./Sidebar.css";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { IoChevronBack } from "react-icons/io5";
-import { FaFilter } from "react-icons/fa";
-import { RiFilterOffFill } from "react-icons/ri";
-import { FiChevronDown } from "react-icons/fi";
+// import { FaFilter } from "react-icons/fa";
+// import { RiFilterOffFill } from "react-icons/ri";
+// import { FiChevronDown } from "react-icons/fi";
 import { FaSatellite } from "react-icons/fa";
-import { HiFilter } from "react-icons/hi";
+import { FaGalacticRepublic } from "react-icons/fa";
+import SearchDebris from "./SearchDebris";
 
 const CloseNav = styled.div`
   background: #2f303a;
@@ -95,7 +96,7 @@ const Sidebar = ({ addSat, visibilityHandler }) => {
             />
           </NavIcon>
           <NavIcon2 to="#">
-            <HiFilter
+            <FaGalacticRepublic
               className="sidecloseIcon hovericon"
               onClick={showSidebar}
             />
@@ -126,31 +127,7 @@ const Sidebar = ({ addSat, visibilityHandler }) => {
               id="back-icon"
             />
           </NavIcon1>
-          {/* <input id='input' type="text" name="name"  autoComplete="off" placeholder='Satellite Name' /> */}
-          <div id="filter-content">
-            <div className="labels2">
-              {" "}
-              <FaFilter id="filterIcon" /> Filter Collections
-            </div>
-            <hr></hr>
-            <div className="labels2" id="clear">
-              Categories <RiFilterOffFill id="clearIcon" />
-              {/* <span class="tooltiptext">Clear Filter</span> */}
-            </div>
-            <hr></hr>
-            <div className="labels2 labels1" id="clear">
-              Organizations <FiChevronDown id="dropIcon" />
-            </div>
-            <hr></hr>
-            <div className="labels2 labels1" id="clear">
-              Features <FiChevronDown id="dropIcon" />
-            </div>
-            <hr></hr>
-            <div className="labels2 labels1" id="clear">
-              Type <FiChevronDown id="dropIcon" />
-            </div>
-            <hr></hr>
-          </div>
+          <SearchDebris  />
         </SidebarNav>
       </div>
     </>
