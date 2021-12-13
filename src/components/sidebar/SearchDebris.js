@@ -4,6 +4,7 @@ import axios from "axios";
 import PageDebris from "./PageDebris";
 import { BsSearch } from "react-icons/bs";
 import { FaSatellite } from "react-icons/fa";
+import { FaGalacticRepublic } from "react-icons/fa";
 // import SideBarButton from "./SideBarButton";
 // import { MdDescription } from "react-icons/md";
 // import { FiChevronDown } from "react-icons/fi";
@@ -236,7 +237,7 @@ class SearchDebris extends Component {
           {this.state.query.length === 0 ? null : this.renderSearchResults()}
           <div className="labels2 " id="all">
             {" "}
-            <FaSatellite id="filterIcon" /> Space Debris
+            <FaGalacticRepublic id="filterIcon-debris" /> Space Debris
           </div>
           <hr />
           <PageDebris

@@ -103,7 +103,6 @@
   height: 80%
 }
 
-
 .content{
   color: white;
   height: 80%;
@@ -172,6 +171,13 @@
 #filterIcon{
   display: inline-block;
   margin-right: 8px;
+  font-size: 20px;
+}
+
+#filterIcon-debris{
+  display: inline-block;
+  margin-right: 8px;
+  font-size: 25px;
 }
 
 #clearIcon{
