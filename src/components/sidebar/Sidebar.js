@@ -78,7 +78,7 @@ const SidebarNav2 = styled.nav`
   z-index: 10;
 `;
 
-const Sidebar = ({ addSat, visibilityHandler,pathHandler }) => {
+const Sidebar = ({ addSat, visibilityHandler,pathHandler, debrisHandler }) => {
   const [sidebar, setSidebar] = useState(false);
   const showSidebar = () => setSidebar(!sidebar);
 
@@ -127,7 +127,7 @@ const Sidebar = ({ addSat, visibilityHandler,pathHandler }) => {
               id="back-icon"
             />
           </NavIcon1>
-          <SearchDebris  />
+          <SearchDebris debrisHandler={debrisHandler}/>
         </SidebarNav>
       </div>
     </>

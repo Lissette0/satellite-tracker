@@ -241,6 +241,7 @@ class SearchDebris extends Component {
           </div>
           <hr />
           <PageDebris
+            debrisHandler={this.props.debrisHandler}
             // addSat={this.props.addSat}
             // visibilityHandler={this.props.visibilityHandler}
           />

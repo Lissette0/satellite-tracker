@@ -4,13 +4,14 @@ import SkyBox from "./SkyBox";
 import Lights from "./Lights";
 import Camera from "./Camera";
 import Satellite from "./Satellite";
+import Debris from './Debris'
 import { Stats, OrbitControls, Stars } from "@react-three/drei";
 import { convertLongLatToXYZ } from "./Helpers";
 import React, { useEffect, useState, useRef } from "react";
 import { Canvas as Canv } from "@react-three/fiber";
 import { earthRadius } from "satellite.js/lib/constants";
 
-const Canvas = ({ currentSats }) => {
+const Canvas = ({ currentSats, currentDebris, showDebris }) => {
   function Point({ position }) {
     return (
       <mesh position={position}>
@@ -19,6 +20,8 @@ const Canvas = ({ currentSats }) => {
       </mesh>
     );
   }
+
+  console.log(currentDebris)
 
   const [satData, setSatData] = useState([]);
   useEffect(() => {
@@ -98,6 +101,16 @@ const Canvas = ({ currentSats }) => {
           country={sat.country}
           status={sat.object_status}
           showPath={sat.showPath}
+        />
+      ))}
+      {showDebris && currentDebris.map(debris => (
+        <Debris
+          key={debris.name}
+          tle1={debris.tle_1}
+          tle2={debris.tle_2}
+          scale={[0.00025, 0.00025, 0.00025]}
+          rotation={[0, -Math.PI / 2, 0]}
+          timeWindow={30}
         />
       ))}
       <OrbitControls
