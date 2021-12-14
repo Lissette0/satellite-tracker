@@ -1,10 +1,10 @@
 import "./Sidebar.css";
 import ReactPaginate from "react-paginate";
 import { useEffect, useState } from "react";
-import SideBarButton from "./SideBarButton";
-import { MdDescription } from "react-icons/md";
-import { FiChevronDown } from "react-icons/fi";
-import { FiChevronUp } from "react-icons/fi";
+// import SideBarButton from "./SideBarButton";
+// import { MdDescription } from "react-icons/md";
+// import { FiChevronDown } from "react-icons/fi";
+// import { FiChevronUp } from "react-icons/fi";
 
 function Page({ addSat, visibilityHandler }) {
   const [items, setItems] = useState([]);
@@ -13,12 +13,10 @@ function Page({ addSat, visibilityHandler }) {
 
   const [pageCount, setpageCount] = useState(0);
 
-  const [show, setShow] = useState(true);
-
   useEffect(() => {
     const getComments = async () => {
       const res = await fetch(
-        `https://alanyu108-satellite-backend.herokuapp.com/api/satellite/page=1/`
+        `https://alanyu108-satellite-backend.herokuapp.com/api/debris/page=1/`
       );
       const data = await res.json();
       setItems(data);
@@ -26,7 +24,7 @@ function Page({ addSat, visibilityHandler }) {
 
 
       const res1 = await fetch(
-        `https://alanyu108-satellite-backend.herokuapp.com/api/satellite/all/`
+        `https://alanyu108-satellite-backend.herokuapp.com/api/debris/all/`
       );
       const data1 = await res1.json();
       const total = data1.length;
@@ -40,7 +38,7 @@ function Page({ addSat, visibilityHandler }) {
 
   const fetchComments = async (currentPage) => {
     const res = await fetch(
-      `https://alanyu108-satellite-backend.herokuapp.com/api/satellite/page=${currentPage}/`
+      `https://alanyu108-satellite-backend.herokuapp.com/api/debris/page=${currentPage}/`
     );
     const data = await res.json();
     return data;
@@ -83,32 +81,31 @@ function Page({ addSat, visibilityHandler }) {
           {isLoading && <p style={{ color: 'white', margin: "20px" }}>LOADING...</p>}
           {items.map((item) => {
             return (
-              <div key={item.name}>
-                <div class="flex justify-center items-center">
+              <div key={item.norad}>
+                <div class="justify-center items-center">
                   <div class=" rounded overflow-hidden shadow-lg ">
                     <div class="px-6 py-4 ">
-                      <div class="font-bold text-xl mb-2">{item.name}</div>
+                      <div class="font-bold text-xl mb-2">{item.norad} {item.name}</div>
                       <p class="text-gray-300 text-base  mr-2">
-                        <b>Country :</b>{" "}
-                        <span class="text-gray-400">{item.country}</span>
+                        <b>Inclination:</b>{" "}
+                        <span class="text-gray-400">{item.inclination}</span>
                       </p>
+
                       <p class="text-gray-300 text-base  mr-2">
-                        <b>Status :</b>{" "}
-                        <span class="text-gray-400">{item.object_status}</span>
+                        <b>Raan:</b>{" "}
+                        <span class="text-gray-400">{item.raan}</span>
                       </p>
+
                       <p class="text-gray-300 text-base  mr-2">
-                        <b>Launch Date :</b>{" "}
-                        <span class="text-gray-400">{item.launch_date}</span>
+                        <b>Eccentricity:</b>{" "}
+                        <span class="text-gray-400">{item.eccentricity}</span>
                       </p>
-                      <p class="text-gray-300 text-base  mr-2">
-                        <b>Launch Site :</b>{" "}
-                        <span class="text-gray-400">{item.launch_site}</span>
-                      </p>
+
                       <p class="text-gray-400 text-base"></p>
 
                       {/* drop down for description  */}
 
-                      <div>
+                      {/* <div>
                         <div className="labels labels1" id="clear">
                           <MdDescription id="clearIcon1" /> Description
                           <button
@@ -134,12 +131,14 @@ function Page({ addSat, visibilityHandler }) {
                             {item.description}
                           </p>
                         </div>
-                      </div>
+                      </div> */}
 
                       {/* end of drop down for description  */}
                     </div>
+
+
                     <div class="px-6 py-4">
-                      <span class="inline-block bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 sidebar-button">
+                      {/* <span class="inline-block bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 sidebar-button">
                         <SideBarButton
                           label="Satellite"
                           clickHandler={addSat}
@@ -154,13 +153,12 @@ function Page({ addSat, visibilityHandler }) {
                           obj={null}
                           dispStyle={"font-semibold"}
                         />
-                      </span>
+                      </span> */}
                       <span class="inline-block bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 sidebar-button">
                         <button
                           className="font-semibold"
-                          onClick={() => visibilityHandler(item)}
                         >
-                          Show Visibility
+                          Show Debris
                         </button>
                       </span>
                     </div>
