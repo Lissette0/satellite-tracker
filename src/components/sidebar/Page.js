@@ -6,7 +6,7 @@ import { MdDescription } from "react-icons/md";
 import { FiChevronDown } from "react-icons/fi";
 import { FiChevronUp } from "react-icons/fi";
 
-function Page({ addSat, visibilityHandler }) {
+function Page({ addSat, visibilityHandler, pathHandler }) {
   const [items, setItems] = useState([]);
 
   const [isLoading, setIsLoading] = useState(true);
@@ -148,12 +148,9 @@ function Page({ addSat, visibilityHandler }) {
                         />
                       </span>
                       <span class="inline-block bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 sidebar-button">
-                        <SideBarButton
-                          label="Path"
-                          clickHandler={console.log}
-                          obj={null}
-                          dispStyle={"font-semibold"}
-                        />
+                         <button className="font-semibold" onClick={() => pathHandler(item)}>
+                            Toggle Path 
+                        </button>
                       </span>
                       <span class="inline-block bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 sidebar-button">
                         <button

@@ -97,6 +97,7 @@ const Canvas = ({ currentSats }) => {
           name={sat.name}
           country={sat.country}
           status={sat.object_status}
+          showPath={sat.showPath}
         />
       ))}
       <OrbitControls

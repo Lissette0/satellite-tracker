@@ -13,11 +13,25 @@ function Content() {
 
   const [currItem, setCurrItem] = useState({});
 
+  const [showPath, setShowPath] = useState(false);
+  console.log(currentSats)
+
   const visibilityHandler = (sat) => {
     console.log(sat);
     setShow(true);
     setCurrItem(sat);
   };
+
+  const pathHandler = (sat) => {
+    const arr = currentSats.filter(currSat => currSat.name == sat.name);
+    if(arr.length === 0){
+      return null;
+    }
+    const item = arr[0];
+    item.showPath = !item.showPath
+    console.log(item)
+    return setCurrentSats(currentSats.map(currSat => currSat.name !== item.name ? currSat : item));
+  }
 
   const satHandler = (sat) => {
     console.log(sat);
@@ -43,6 +57,7 @@ function Content() {
           id="sidebar"
           addSat={satHandler}
           visibilityHandler={visibilityHandler}
+          pathHandler={pathHandler}
         />
         {show && <VisibilityModal showHandler={setShow} sat={currItem} />}
         <div className="float" id="earth">

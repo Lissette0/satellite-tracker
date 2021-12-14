@@ -19,6 +19,7 @@ export default function Satellite({
   name,
   country,
   status,
+  showPath
 }) {
   const satRef = useRef();
   console.log(satRef);
@@ -29,12 +30,16 @@ export default function Satellite({
   useEffect(() => {
     new GLTFLoader().load(sat, setModel);
   }, []);
+  let satelliteRecord = satellite.twoline2satrec(tle1, tle2);
+  let positionAndVelocity = satellite.propagate(satelliteRecord, new Date());
+  let positionEci = positionAndVelocity.position;
+  console.log(positionAndVelocity)
 
   useFrame(() => {
     let pos = [];
-    let satelliteRecord = satellite.twoline2satrec(tle1, tle2);
-    let positionAndVelocity = satellite.propagate(satelliteRecord, new Date());
-    let positionEci = positionAndVelocity.position;
+    satelliteRecord = satellite.twoline2satrec(tle1, tle2);
+    positionAndVelocity = satellite.propagate(satelliteRecord, new Date());
+    positionEci = positionAndVelocity.position;
 
     let gmst = satellite.gstime(new Date());
     if (satRef.current !== undefined && typeof positionEci !== "undefined") {
@@ -83,6 +88,7 @@ export default function Satellite({
         color={color}
         points={points}
         scale={scale}
+        show={showPath}
       />
     </>
   ) : (

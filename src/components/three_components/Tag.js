@@ -28,7 +28,7 @@ function shortenText(text) {
     return text
 }
 
-export default function Tag({ text: { name, country, status }, position, tag_scale_factor }) {
+export default function Tag({ text: { name, country, status,}, position, tag_scale_factor }) {
     const textCanvas = React.useMemo(() => {
 
         const canvas = document.createElement('canvas')

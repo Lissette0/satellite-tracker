@@ -8,7 +8,7 @@ const SideBarButton = ({ label, obj, clickHandler, dispStyle }) => {
       className={dispStyle}
       onClick={() => {
         setShow(!show);
-        clickHandler({ sat: obj, show });
+        clickHandler({ sat: {showPath: true,...obj}, show, });
       }}
     >
       {`${show ? "Show" : "Hide"} ${label}`}

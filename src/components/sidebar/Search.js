@@ -6,7 +6,7 @@ import Page from "./Page";
 import { FaSatellite } from "react-icons/fa";
 import SideBarButton from "./SideBarButton";
 import { MdDescription } from "react-icons/md";
-import { FiChevronDown } from "react-icons/fi";
+ import { FiChevronDown } from "react-icons/fi";
 import { FiChevronUp } from "react-icons/fi";
 
 class Search extends Component {
@@ -170,12 +170,9 @@ class Search extends Component {
                         />
                       </span>
                       <span class="inline-block bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 sidebar-button">
-                        <SideBarButton
-                          label="Path"
-                          clickHandler={console.log}
-                          obj={null}
-                          dispStyle={"font-semibold"}
-                        />
+                        <button onClick={() => this.props.pathHandler(sat,!sat.showPath)}>
+                            Toggle Path 
+                        </button>
                       </span>
                       <span class="inline-block bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 sidebar-button">
                         <button
@@ -240,6 +237,7 @@ class Search extends Component {
           <Page
             addSat={this.props.addSat}
             visibilityHandler={this.props.visibilityHandler}
+            pathHandler={this.props.pathHandler}
           />
           {/* <Data handleSatChange={this.props.handleSatChange} /> */}
           { }
