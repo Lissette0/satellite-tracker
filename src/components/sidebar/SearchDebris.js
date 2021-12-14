@@ -98,7 +98,7 @@ class SearchDebris extends Component {
                 <div class="justify-center items-center">
                   <div class="rounded overflow-hidden shadow-lg ">
                     <div class="px-6 py-4 ">
-                      <div class="font-bold text-xl mb-2">{sat.name}</div>
+                      <div class="font-bold text-xl mb-2">{sat.norad} {sat.name}</div>
 
                       <p class="text-gray-300 text-base  mr-2">
                         <b>Inclination:</b>{" "}
@@ -227,7 +227,7 @@ class SearchDebris extends Component {
             name="query"
             value={query}
             autoComplete="off"
-            placeholder="Search Satellite "
+            placeholder="Search Debris "
             onChange={this.handleOnInputChange}
           />
         </label>

@@ -85,7 +85,7 @@ function Page({ addSat, visibilityHandler }) {
                 <div class="justify-center items-center">
                   <div class=" rounded overflow-hidden shadow-lg ">
                     <div class="px-6 py-4 ">
-                      <div class="font-bold text-xl mb-2">{item.name}</div>
+                      <div class="font-bold text-xl mb-2">{item.norad} {item.name}</div>
                       <p class="text-gray-300 text-base  mr-2">
                         <b>Inclination:</b>{" "}
                         <span class="text-gray-400">{item.inclination}</span>
