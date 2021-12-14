@@ -119,10 +119,10 @@ const Canvas = ({ currentSats, currentDebris, showDebris }) => {
         enablePan={true}
         rotateSpeed={0.4}
       />
-      <Stars
+      {/* <Stars
         count={2000}
         fade
-      />
+      /> */}
 
       {/* {satData.map((sat, i) => (
         <Satellite
